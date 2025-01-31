@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme{
+  --navbar-heigth: 60px;
+}
+
 :root {
 
   font-synthesis: none;

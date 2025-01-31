@@ -1,27 +1,25 @@
 
 import { createBrowserRouter } from "react-router";
-import App from '../App'
-// import Home from "./pages/Home";
-// import About from "./pages/About";
+import MainLayout from "../UI/MainLayout";
+import { HomePage, ComponentsPage } from "../components/pages";
+
 // import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
+    path: '/',
+    element: <MainLayout />,
+    children: [
+      {
+        path: '/home',
+        element: <HomePage />,
+      },
+      {
+        path: '/components',
+        element: <ComponentsPage />,
+      },
+    ],
   },
-  {
-    path: "/home",
-    element: <App />,
-    // children: [
-    //   { path: "/", element: <Home /> },
-    //   { path: "/about", element: <About /> },
-    // ],
-  },
-  // {
-  //   path: "*", // Ruta para manejar 404
-  //   element: <NotFound />,
-  // },
 ]);
 
 export default router;
