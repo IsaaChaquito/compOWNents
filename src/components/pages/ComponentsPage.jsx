@@ -2,7 +2,9 @@
 
 export const ComponentsPage = () => {
   return (
-    <div>ComponentsPage</div>
+    <div className="w-full h-full flex justify-center items-center">
+      ComponentsPage
+    </div>
   )
 }
 

@@ -2,10 +2,22 @@
 
 export const initialState = {
   options: {
-    buttons: 'Buttons',
-    inputs: 'Inputs',
-    selects: 'Selects',
-    tooltips: 'Tooltips',
+    buttons: {
+      title: 'Buttons',
+      link: '/buttons',
+    },
+    inputs: {
+      title: 'Inputs',
+      link: '/inputs',
+    },
+    selects: {
+      title: 'Selects',
+      link: '/selects',
+    },
+    tooltips: {
+      title: 'Tooltips',
+      link: '/tooltips',
+    }
   },
   isExpanded: true,
   optionSelected: 'Buttons',
