@@ -3,7 +3,7 @@ import { useProvider } from '../../context/useProvider'
 import { Link } from 'react-router'
 // import { SolarDoubleAltArrowRightBoldDuotone, LineMdChevronTripleRight } from '../../assets/icons'
 
-export const Drawer = ({ isOpen }) => {
+export const Drawer = () => {
   
   const { drawerState, drawerDispatch } = useProvider()
 
