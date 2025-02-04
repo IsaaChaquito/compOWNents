@@ -1,0 +1,50 @@
+// import { wSize, tSize } from "../variants"
+
+import { useEffect, useState } from "react";
+import { BtnStyle } from "./ButtonBuilder";
+
+/**
+ * @function Button
+ * @description A basic button component
+ * @param {Object} props Component props
+ * @param {String} [props.type='primary md'] The type of button, can be a combination of (primary, secondary, danger, bw, wb) and (xs, sm, md, lg, xl, xxl)
+ * @param {String} [props.title='Button'] The title of the button
+ * @param {String} [props.className=''] Additional classnames for the button
+ * @param {Function} [props.onClick=undefined] The function to call when the button is clicked
+ * @returns {ReactElement} The Button component
+ */
+const Button = (
+  {
+    children, 
+    onClick, 
+    className, 
+    type = 'primary md', 
+    title = 'Button'
+  }) => {
+
+  const [btnStyle, setBtnStyle] = useState();
+  const btnClases = type.split(' ')
+  
+
+  useEffect(() => {
+    const instance = new BtnStyle();
+    btnClases.forEach((btnClass) => instance[btnClass]() );
+    setBtnStyle(instance.build());
+  }, [btnStyle, btnClases]);
+
+  return (
+    <>
+      { btnStyle  &&
+        <button 
+          onClick={() => onClick()}
+          className={`${className} ${btnStyle} `}
+        >
+          { children ?? title }
+        </button>
+        
+      }
+    </>
+  )
+}
+
+export default Button
