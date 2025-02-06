@@ -23,12 +23,20 @@ const Button = (
   }) => {
 
   const [btnStyle, setBtnStyle] = useState();
-  const btnClases = type.split(' ')
-  
+  const btnClases = type.trim().split(' ').filter(Boolean);
 
   useEffect(() => {
+    console.log(btnClases);
     const instance = new BtnStyle();
-    btnClases.forEach((btnClass) => instance[btnClass]() );
+    btnClases.forEach((btnClass) => {
+      const [method, arg] = btnClass.split('-');
+      if (arg) {
+        instance[method]?.(arg);
+      } else {
+        instance[method]?.();
+      }
+    });
+    
     setBtnStyle(instance.build());
   }, [btnStyle, btnClases]);
 

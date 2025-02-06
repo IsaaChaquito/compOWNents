@@ -10,6 +10,45 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --shadow-color: 0deg 0% 50%;
+  --shadow-zero: 1px 1px 0px hsl(var(--shadow-color) / .3);
+  --shadow-elevation-low:
+  0.2px 0.2px 0.4px hsl(var(--shadow-color) / 0),
+  0.3px 0.3px 0.6px hsl(var(--shadow-color) / 0.23),
+  0.6px 0.7px 1.4px hsl(var(--shadow-color) / 0.46);
+--shadow-elevation-medium:
+  0.2px 0.2px 0.4px hsl(var(--shadow-color) / 0),
+  0.6px 0.7px 1.4px hsl(var(--shadow-color) / 0.12),
+  1.1px 1.1px 2.3px hsl(var(--shadow-color) / 0.23),
+  1.9px 1.9px 4px hsl(var(--shadow-color) / 0.35),
+  3.2px 3.3px 6.9px hsl(var(--shadow-color) / 0.46);
+--shadow-elevation-high:
+  0.2px 0.2px 0.4px hsl(var(--shadow-color) / 0),
+  1.4px 1.4px 3px hsl(var(--shadow-color) / 0.05),
+  2.4px 2.5px 5.2px hsl(var(--shadow-color) / 0.11),
+  3.4px 3.5px 7.3px hsl(var(--shadow-color) / 0.16),
+  4.5px 4.6px 9.7px hsl(var(--shadow-color) / 0.21),
+  5.8px 6px 12.5px hsl(var(--shadow-color) / 0.27),
+  7.5px 7.7px 16.1px hsl(var(--shadow-color) / 0.32),
+  9.7px 10px 20.9px hsl(var(--shadow-color) / 0.38),
+  12.5px 12.9px 26.9px hsl(var(--shadow-color) / 0.43),
+  16.1px 16.5px 34.6px hsl(var(--shadow-color) / 0.48);
 }
 
+.shadow-low{
+  box-shadow: var(--shadow-elevation-low);
+  &:active{
+    box-shadow: var(--shadow-zero);
+  }
+  transition: .2s ease-in-out;
+}
+
+.shadow-medium{
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.shadow-high{
+  box-shadow: var(--shadow-elevation-high);
+}
 
