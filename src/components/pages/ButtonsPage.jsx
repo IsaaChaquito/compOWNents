@@ -5,9 +5,9 @@ export const sizeTypes = [
   'black xs',
   'black sm',
   'black md',
-  'white lg',
-  'white xl',
-  'white xxl',
+  'black lg',
+  'black xl',
+  'black xxl',
 ]
 
 export const regularTypes = [
@@ -44,15 +44,13 @@ export const ButtonsPage = () => {
         <h1 className="text-3xl">Buttons</h1>
       </section>    
 
-            <section className="REGULAR-TYPES w-full p-3 bg-yellow-100">
-        {/* <div className="flex gap-x-2"> */}
-          <span>You can try different types like:    
-            {/* <code className='ml-2 font-bold text-blue-500/80'>
-              primary | secondary | success | warning | danger | black
-            </code> */}
-          </span>
-          <div className="flex gap-2 items-end my-2 mb-5 flex-wrap">
-
+        <section className="REGULAR-TYPES w-full p-3">
+          <div className='flex flex-col gap-2'>
+            <h1 className='text-3xl'>Classics</h1>
+            <span>You can try different classic types:</span>
+          </div>
+          
+          <div className="flex gap-2 items-end my-10 mb-5 flex-wrap">
             {
               regularTypes.map( (type, i) => {
                 return(
@@ -62,67 +60,61 @@ export const ButtonsPage = () => {
                     className={`shadow-zero!`}
                     type={type}
                     title={type.split(' ')[0]}
+                    disabled={true}
                   />
                 )
               })
             }
+            </div>
+          </section>  
 
+      <section className="SIZES w-full p-3 ">
+        <div className='flex flex-col gap-2'>
+            <h1 className='text-3xl'>Sizes</h1>
+            <span>You can try different sizes:</span>
           </div>
-      </section>  
-
-      <section className="SIZES w-full p-3 bg-yellow-100">
-        {/* <div className="flex gap-x-2"> */}
-          <span>You can try different sizes like:    
-            {/* <code className='ml-2 font-bold text-blue-500/80'>
-              xs | sm | md | lg | xl | xxl
-            </code> */}
-          </span>
-          <div className="flex gap-2 items-end my-2 mb-5 flex-wrap">
-
-            {
-              sizeTypes.map( (type, i) => {
-                return(
-                  <Button 
-                    key={i}
-                    onClick={handleClick}
-                    className={`shadow-zero!`}
-                    type={type}
-                    title={type.split(' ')[1]}
-                  >
-                    <pre>  {type.split(' ')[1]}  </pre>
-                  </Button>
-                )
-              })
-            }
-
-          </div>
+        <div className="flex gap-2 items-end my-2 mb-5 flex-wrap">
+          {
+            sizeTypes.map( (type, i) => {
+              return(
+                <Button 
+                  key={i}
+                  onClick={handleClick}
+                  className={`shadow-zero!`}
+                  type={type}
+                  title={type.split(' ')[1]}
+                >
+                  <pre>  {type.split(' ')[1]}  </pre>
+                </Button>
+              )
+            })
+          }
+        </div>
       </section>
 
-      <section className="OUTLINED-TYPES w-full p-3 bg-yellow-100">
-        {/* <div className="flex gap-x-2"> */}
-          <span>You can try different types like:    
-            {/* <code className='ml-2 font-bold text-blue-500/80 text-'>
-              primary-out | secondary-out | success-out | warning-out | danger-out | black-out
-            </code> */}
-          </span>
-          <div className="flex gap-2 items-end my-2 mb-5 flex-wrap">
-
-            {
-              outlinedTypes.map( (type, i) => {
-                return(
-                  <Button 
-                    key={i}
-                    onClick={handleClick}
-                    className={`shadow-zero!`}
-                    type={type}
-                    title={type.split(' ')[0]}
-                  />
-                )
-              })
-            }
-
+      <section className="OUTLINED-TYPES w-full p-3 ">
+          <div className='flex flex-col gap-2'>
+            <h1 className='text-3xl'>Outlined</h1>
+            <span>You can try different outlined types:</span>
           </div>
+        <div className="flex gap-2 items-end my-2 mb-5 flex-wrap">
+          {
+            outlinedTypes.map( (type, i) => {
+              return(
+                <Button 
+                  key={i}
+                  onClick={handleClick}
+                  className={``}
+                  type={type}
+                  title={type.split(' ')[0]}
+                  disabled={true}
+                />
+              )
+            })
+          }
+        </div>
       </section>
+
     </div>
   )
 }

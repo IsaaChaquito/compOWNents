@@ -16,7 +16,7 @@ export const MainLayout = () => {
       <div className="BODY w-full h-[calc(100vh_-_var(--navbar-height))] flex bg-blue-500/10">
         <Drawer isOpen={isDrawerOpen} />
         
-        <div className="CONTENT w-full h-full bg-red-100">
+        <div className="CONTENT w-full h-full bg-white">
           <Outlet />
         </div>
       </div>

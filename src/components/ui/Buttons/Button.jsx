@@ -19,14 +19,15 @@ const Button = (
     onClick, 
     className, 
     type = 'primary md', 
-    title = 'Button'
+    title = 'Button',
+    disabled = false,
   }) => {
 
   const [btnStyle, setBtnStyle] = useState();
   const btnClases = type.trim().split(' ').filter(Boolean);
 
   useEffect(() => {
-    console.log(btnClases);
+    // console.log(btnClases);
     const instance = new BtnStyle();
     btnClases.forEach((btnClass) => {
       const [method, arg] = btnClass.split('-');
@@ -44,8 +45,8 @@ const Button = (
     <>
       { btnStyle  &&
         <button 
-          onClick={() => onClick()}
-          className={`${className} ${btnStyle} `}
+          onClick={() => !disabled && onClick()}
+          className={`${className} ${btnStyle} ${disabled && 'pointer-events-none opacity-40'}`}
         >
           { children ?? title }
         </button>
