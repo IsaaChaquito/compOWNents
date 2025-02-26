@@ -2,7 +2,7 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../UI/MainLayout";
 import { HomePage } from "../components/pages";
-import { ButtonsPage } from "../components/pages/ButtonsPage";
+import { ButtonsPage } from "../components/pages/buttons/ButtonsPage";
 // import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([

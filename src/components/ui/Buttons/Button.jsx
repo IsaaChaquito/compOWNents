@@ -46,7 +46,7 @@ const Button = (
       { btnStyle  &&
         <button 
           onClick={() => !disabled && onClick()}
-          className={`${className} ${btnStyle} ${disabled && 'pointer-events-none opacity-40'}`}
+          className={`${className} ${btnStyle} ${disabled && 'pointer-events-none opacity-40 user-select-none'}`}
         >
           { children ?? title }
         </button>

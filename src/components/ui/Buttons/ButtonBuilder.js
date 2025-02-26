@@ -125,6 +125,8 @@ export class BtnStyle {
     return this;
   }
 
+
+
   reset() {
     this.classes = ['rounded', 'transition-all', 'duration-200', 'focus:outline-none', 'cursor-pointer'];
   }
