@@ -91,37 +91,37 @@ export class BtnStyle {
   }
 
   xxs() {
-    this.classes.push('text-xxs px-1.5 py-1.5');
+    this.classes.push('text-xxs px-1.5 py-1.5 h-fit');
     return this;
   }
 
   xs() {
-    this.classes.push('text-xs px-1.5 py-1.5');
+    this.classes.push('text-xs px-1.5 py-1.5 h-fit');
     return this;
   }
 
   sm() {
-    this.classes.push('text-sm px-2 py-1.5');
+    this.classes.push('text-sm px-2 py-1.5 h-fit');
     return this;
   }
 
   md() {
-    this.classes.push('text-md px-2 py-1.5');
+    this.classes.push('text-md px-2 py-1.5 h-fit');
     return this;
   }
 
   lg() {
-    this.classes.push('text-lg px-2.5 py-1.5');
+    this.classes.push('text-lg px-2.5 py-1.5 h-fit');
     return this;
   }
 
   xl() {
-    this.classes.push('text-xl px-2.5 py-2');
+    this.classes.push('text-xl px-2.5 py-2 h-fit');
     return this;
   }
 
   xxl() {
-    this.classes.push('text-2xl px-3 py-2');
+    this.classes.push('text-2xl px-3 py-2 h-fit');
     return this;
   }
 

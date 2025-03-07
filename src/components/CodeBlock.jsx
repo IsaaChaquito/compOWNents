@@ -21,15 +21,15 @@ const CodeBlock = ({ children }) => {
   };
 
   return (
-  <div className="relative w-full">
-      <pre className="peer text-sm relative overflow-hidden max-w-full tab-size h-full">
+  <div className="relative w-ful">
+      <pre className="peer text-sm  overflow-hidden  h-full">
         <code  className="language-xml rounded text-xs  ">
           {children}
         </code>
       </pre>
       <button
         onClick={copyToClipboard}
-        className="flex absolute top-2 right-2 bg-[#333] text-white py-1 px-2 rounded cursor-pointer hover:bg-[#444] transition duration-300 ease-in-out text-sm opacity-0 peer-hover:opacity-100 hover:opacity-100"
+        className={`${isCopied ? "opacity-100" : "opacity-0"} flex absolute top-2 right-2 bg-[#333] text-white py-1 px-2 rounded cursor-pointer hover:bg-[#444] transition duration-300 ease-in-out text-sm peer-hover:opacity-100 hover:opacity-100`}
       >
         <CopyIcon className="w-4 h-4" />
         {isCopied && <span className="text-xs ml-1"> Copied! </span>}

@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router";
 import MainLayout from "../UI/MainLayout";
 import { HomePage } from "../components/pages";
 import { ButtonsPage } from "../components/pages/buttons/ButtonsPage";
+import { InputsPage } from "../components/pages/inputs/InputsPage";
 // import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         //   }
         // ]
       },
+      {
+        path:'/inputs',
+        element: <InputsPage />,
+      }
     ],
   },
 ]);

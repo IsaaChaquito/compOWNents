@@ -39,7 +39,7 @@ export const customTypes = [
 export const ButtonsPage = () => {
 
   return (
-    <div className='w-full h-full flex flex-col '>
+    <div className='w-fulll h-full flex flex-col items-center overflow-x-hidden'>
 
       <section className='TITLE p-2'>
         <h1 className="text-3xl">Buttons</h1>

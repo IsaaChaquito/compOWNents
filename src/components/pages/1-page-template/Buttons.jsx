@@ -7,7 +7,7 @@ export const Buttons = ({ types, styles = '', disabled = false }) => {
   }
   
   return (
-    <div className='flex gap-2 w-auto items-end'>
+    <>
       {
         types.map( (type, i) => {
           return(
@@ -22,6 +22,6 @@ export const Buttons = ({ types, styles = '', disabled = false }) => {
           )
         })
       }
-    </div>
+    </>
   )
 }

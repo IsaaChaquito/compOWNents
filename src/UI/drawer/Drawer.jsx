@@ -8,7 +8,7 @@ export const Drawer = () => {
   const { drawerState, drawerDispatch } = useProvider()
 
   return (
-    <div className='min-w-[220px] max-w-[220px] h-full flex flex-col items-center shadow'>
+    <div className='min-w-[var(--drawer-width)] max-w-[var(--drawer-width)] h-full flex flex-col items-center shadow'>
       
       <h1 className='DRAWER-TITLE text-2xl py-1 font-medium '>Components</h1>
 
