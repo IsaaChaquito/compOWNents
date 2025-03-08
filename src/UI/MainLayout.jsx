@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Navbar from '../UI/navbar/Navbar';
 import Drawer from '../UI/drawer/Drawer';
 import { Outlet } from 'react-router';
-import Console from '../components/Console';
+import Footer from '../components/Footer';
 
 export const MainLayout = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(true);
@@ -33,7 +33,7 @@ export const MainLayout = () => {
   // );
 
   return (
-    <div className="min-h-screen w-[calc(100%-(var(--drawer-width))] grid grid-rows-[auto_1fr_auto] grid-cols-[auto_1fr_auto] ">
+    <div className="min-h-screen w-full grid grid-rows-[auto_1fr_auto] grid-cols-[auto_1fr_auto] ">
       {/* Navbar */}
       <header className="col-span-3 bg-gray-800 text-white p-4">
         <Navbar 
@@ -57,9 +57,8 @@ export const MainLayout = () => {
       </aside>
 
       {/* Content */}
-      <main className="bg-white p-4 max-w-[calc(100%_-_var(--drawer-width))]">
+      <main className="bg-white p-4 overflow-x-hidden z-10 relative">
         <Outlet/>
-        {/* <Console /> */}
       </main>
 
       {/* Right Sidebar */}
@@ -68,8 +67,8 @@ export const MainLayout = () => {
       </aside>
 
       {/* Footer */}
-      <footer className="col-span-3 bg-gray-800 text-white p-4">
-        Footer
+      <footer className="col-span-3 bg-gray-800 text-white">
+        <Footer />
       </footer>
     </div>
   );

@@ -3,7 +3,6 @@ import { SubSection } from './SubSection';
 import { Buttons } from './Buttons';
 import Button from '../../ui/Buttons';
 
-
 export const sizeTypes = [
   'black xs',
   'black sm',
@@ -39,13 +38,13 @@ export const customTypes = [
 export const ButtonsPage = () => {
 
   return (
-    <div className='w-full h-full flex flex-col '>
+    <div className='w-full h-full flex flex-col relative '>
 
       <section className='TITLE p-2'>
         <h1 className="text-3xl">Buttons</h1>
       </section>    
 
-      <SubSection subTitle='Classics' description='You can try different classic types:'>
+      <SubSection subTitle='Classics' description='You can try different classic types:' showConsole={true}>
         <Buttons types={regularTypes} />
         <CodeBlock>
           {regularTypes
@@ -61,7 +60,7 @@ export const ButtonsPage = () => {
         </span>
       </SubSection>
 
-      <SubSection subTitle='Disabled' description='You can disable buttons with the disabled prop:'>
+      <SubSection subTitle='Disabled' description='You can disable buttons with the disabled prop:' >
         <Buttons types={regularTypes} disabled={true} />
         <CodeBlock>
           {regularTypes
@@ -99,23 +98,25 @@ export const ButtonsPage = () => {
 
       <SubSection subTitle='Custom styles' description='You can customize the styles:'>
         {/* <Buttons types={customTypes} styles='bg-indigo-700 hover:bg-indigo-800 text-white' /> */}
-        <Button 
-          type='md' 
-          title='Button' 
-          className='bg-indigo-700 hover:bg-indigo-800 text-white' 
-        />
+        <div className='flex gap-2 flex-wrap'>
+          <Button 
+            type='md' 
+            title='Button' 
+            className='bg-indigo-700 hover:bg-indigo-800 text-white' 
+          />
 
-        <Button 
-          type='md' 
-          title='Button' 
-          className='rounded-full bg-indigo-700 hover:bg-indigo-800 text-white' 
-        />
+          <Button 
+            type='md' 
+            title='Button' 
+            className='rounded-full bg-indigo-700 hover:bg-indigo-800 text-white' 
+          />
 
-        <Button 
-          type='md' 
-          title='Button' 
-          className='bg-conic/decreasing from-violet-700 via-lime-300 to-violet-700 hover:text-white rounded-tr-2xl rounded-bl-2xl' 
-        />
+          <Button 
+            type='md' 
+            title='Button' 
+            className='bg-conic/decreasing from-violet-700 via-lime-300 to-violet-700 hover:text-white rounded-tr-2xl rounded-bl-2xl' 
+          />
+        </div>
 
         <CodeBlock>
           {
@@ -126,11 +127,13 @@ export const ButtonsPage = () => {
         </CodeBlock>
 
         <SubSection description='You can also add a specific class for specific results:'>
-          <Button 
-            type='xxl' 
-            title='Button' 
-            className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white box !px-12' 
-          />
+          <div>
+            <Button 
+              type='xxl' 
+              title='Button' 
+              className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white box !px-12' 
+            />
+          </div>
 
           <CodeBlock>
             {
