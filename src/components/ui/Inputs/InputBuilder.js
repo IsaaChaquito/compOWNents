@@ -1,5 +1,5 @@
 
-export class BtnStyle {
+export class InputStyle {
 
   constructor() {
     this.classes = [

@@ -1,4 +1,4 @@
-import Button from '../../ui/Buttons'
+import Button from '../../ui/Buttons/Button';
 
 export const Buttons = ({ types, styles = '', disabled = false }) => {
 
@@ -15,8 +15,8 @@ export const Buttons = ({ types, styles = '', disabled = false }) => {
               key={i}
               onClick={() => handleClick(type)}
               className={styles}
-              type={type}
-              title={type.split(' ')[0]}
+              variant={type}
+              text={type.split(' ')[0]}
               disabled={disabled}
             />
           )

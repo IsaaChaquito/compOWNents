@@ -13,7 +13,7 @@ export const InputsPage = () => {
         <h1 className="text-3xl">Inputs</h1>
       </section>    
 
-      <SubSection subTitle='Classics' description='You can try different classic types:'>
+      <SubSection subTitle='Classic' description='You can try different classic types:'>
 
         <Input />
 
