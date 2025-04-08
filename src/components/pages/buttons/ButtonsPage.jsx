@@ -1,9 +1,10 @@
 import CodeBlock from '../../CodeBlock';
 import { SubSection } from './SubSection';
 import { Buttons } from './Buttons';
-import { HeartIcon } from '../../../assets/icons';
+import { HeartIcon, LoaderCircular } from '../../../assets/icons';
 
 import Button from '../../ui/Buttons/Button';
+import { useState } from 'react';
 
 export const sizeTypes = [
   'black xs',
@@ -38,6 +39,14 @@ export const customTypes = [
 ]
 
 export const ButtonsPage = () => {
+
+  const [isLoading, setIsLoading] = useState(false);
+   const handleLoading = () => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, Math.floor(Math.random() * 4000) + 1000)
+  }
 
   return (
     <div className='w-full h-full flex flex-col relative '>
@@ -102,28 +111,10 @@ export const ButtonsPage = () => {
       <SubSection subTitle='Solid' description='Solid styles:'>
         <div className='flex gap-2'>
           <Button 
-            variant='solid md' 
+            variant='solid bg- md' 
             title='Button' 
-            className='w-full' 
           />
 
-        <Button
-          variant="md text-#c33872 bg-black" // Clases para el builder
-          // text="Enviar formulario"
-          className=' hover:!text-red-600 w-full rounded-full'
-          // icon={{ position: 'right', content: () => <span>🚀</span> }}
-          icon={{ position: 'right', content: () => <HeartIcon /> }}
-          disabled={false} // Disabled depende del input
-          isLoading={false}
-          onClick={() => console.log('clicked button2')}
-          tooltip="Haz clic para enviar"
-        />
-      <Button
-        variant="md bg-orange text-white "
-        text="Procesando"
-        isLoading={true}
-        disabled={true}
-      />
         </div>
           <CodeBlock>
             {`<Button variant='md' title='Button' className='bg-indigo-700 hover:bg-indigo-800 text-white' />`}
@@ -131,7 +122,6 @@ export const ButtonsPage = () => {
       </SubSection>
 
       <SubSection subTitle='Custom styles' description='You can customize the styles:'>
-        {/* <Buttons types={customTypes} styles='bg-indigo-700 hover:bg-indigo-800 text-white' /> */}
         <div className='flex gap-2'>
           <Button 
             variant='md' 
@@ -150,6 +140,16 @@ export const ButtonsPage = () => {
             title='Button' 
             className='bg-conic/decreasing from-violet-700 via-lime-300 to-violet-700 hover:text-white rounded-tr-2xl rounded-bl-2xl' 
           />
+
+          <Button
+            variant="md text-#ffc0cb  bg-black" // Clases para el builder
+            // text="Enviar formulario"
+            className=' hover:!text-red-600 w-full rounded-full'
+            // icon={{ position: 'right', content: () => <span>🚀</span> }}
+            icon={{ position: 'right', content: () => <HeartIcon className=' text-red-600' /> }}
+            onClick={() => console.log('clicked button2')}
+            tooltip="Haz clic para enviar"
+          />
         </div>
 
         <CodeBlock>
@@ -159,8 +159,9 @@ export const ButtonsPage = () => {
             `<Button variant='md' title='Button' className='bg-indigo-700 hover:bg-indigo-800 text-white' />\n<Button variant='md' title='Button' className='w-full rounded-full bg-orange-500 hover:bg-orange-700 text-white' />\n<Button variant='md' title='Button' className='bg-conic/decreasing from-violet-700 via-lime-300 to-violet-700 hover:text-white rounded-tr-2xl rounded-bl-2xl' />`
           }
         </CodeBlock>
+      </SubSection>
 
-        <SubSection description='You can also add a specific css class or classes for specific results:'>
+      <SubSection subTitle='Custom classes' description='You can also add a specific css class or classes for specific results:'>
           <div>
             <Button 
               variant='xxl' 
@@ -176,6 +177,34 @@ export const ButtonsPage = () => {
           </CodeBlock>
         </SubSection>
 
+      <SubSection subTitle='Loading state' description='You can set the loading state with the isLoading prop:'>
+        <div className='flex gap-2'>
+          <Button
+            variant="md bg-orange text-white"
+            className='w-full'
+            text="Load data"
+            isLoading={isLoading}
+            loadingIcon={{ content: () => <LoaderCircular className='h-5 w-5 text-white' />, position: 'right' }}
+            loadingText="Loading"
+            disabled={isLoading}
+            onClick={handleLoading}
+          />
+        </div>
+<CodeBlock>
+  {`<Button
+  variant="md bg-orange text-white"
+  className='w-full'
+  text="Load data"
+  isLoading={isLoading}
+  loadingIcon={{ 
+    position: 'right', 
+    content: () => <LoaderCircular className='h-5 w-5 text-white' /> 
+  }}
+  loadingText="Loading"
+  disabled={isLoading}
+  onClick={handleLoading}
+/>`}
+</CodeBlock>
       </SubSection>
 
     </div>

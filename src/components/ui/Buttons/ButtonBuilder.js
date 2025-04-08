@@ -2,7 +2,7 @@
 class ButtonBuilder {
   constructor() {
     this.classes = 'flex justify-center items-center rounded transition-all duration-150 focus:outline-none cursor-pointer user-select-none shadow-low text-nowrap active:scale-x-95 active:scale-y-85',
-    this.styles = {};
+    this.styles = {  };
   }
 
   primary( outline ) {
@@ -96,7 +96,7 @@ class ButtonBuilder {
   }
 
   lg() {
-    this.classes += 'text-lg px-2.5 py-1.5 h-fit'
+    this.classes += ' text-lg px-2.5 py-1.5 h-fit'
     return this;
   }
 
@@ -110,18 +110,19 @@ class ButtonBuilder {
     return this;
   }
 
-  solid( color ){
+  xxxl() {
+    this.classes += ' text-3xl px-3 py-2 h-fit'
+    return this;
+  }
 
-    if(color){
-      color.startsWith('#')
-    }
-
-    this.classes +=` bg-black text-white hover:text-gray-300  `
+  solid(){
+    this.classes += ` bg-black text-white hover:text-gray-300  `
     return this
   }
 
   reset() {
-    this.classes ='rounded transition-all duration-200 focus:outline-none cursor-pointer'
+    this.classes = ' flex justify-center items-center rounded transition-all duration-150 focus:outline-none cursor-pointer user-select-none shadow-low text-nowrap active:scale-x-95 active:scale-y-85',
+    this.styles = {};
   }
 
   bg(color) {

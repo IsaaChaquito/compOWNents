@@ -1,6 +1,7 @@
 // MyButton.jsx
 import { useMemo } from 'react';
 import ButtonBuilder2 from './ButtonBuilder';
+import { LoaderDefaultIcon } from '../../../assets/icons';
 
 const Button = ({
   variant = '',           // Ejemplo: 'primary color-#ffffff'
@@ -10,6 +11,8 @@ const Button = ({
   type = 'button',        // Tipo de botón
   disabled = false,       // Estado deshabilitado
   isLoading = false,      // Estado de carga
+  loadingText,
+  loadingIcon = { content: () => <LoaderDefaultIcon className='animate-spin h-5 w-5 text-white' />, position: 'left' }   ,      // Icono de carga},
   onClick,                // Evento click
   tooltip,                // Tooltip para accesibilidad
 }) => {
@@ -30,44 +33,47 @@ const Button = ({
   }, [variant]);
 
   const IconComponent = icon?.content;
+  const IconLoading = loadingIcon?.content;
 
   return (
     <button
       onClick={() => !disabled && !isLoading && onClick?.()} // Evita clics si está disabled o loading
       className={`${className} ${builderState?.classes || ''} ${icon ? ' flex items-center gap-2' : ''} ${
-        disabled ? 'pointer-events-none opacity-50 select-none cursor-not-allowed' : ''
-      } ${isLoading ? 'pointer-events-none cursor-not-allowed' : ''}`}
+        disabled ? 'pointer-events-none opacity-50 select-none' : ''
+      } ${isLoading ? 'pointer-events-none' : ''}`}
       style={builderState?.styles || {}}
       type={type}
       title={tooltip}
     >
-      {isLoading ? (
-        <span className="flex items-center gap-2">
-          <svg
-            className="animate-spin h-5 w-5 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8v8h-8z"
-            />
-          </svg>
-          Cargando...
-        </span>
-      ) : (
+      {isLoading ? 
+        loadingIcon ? (
+          <span className="flex items-center gap-1">
+            {loadingIcon?.position === 'left' && (
+              <span>
+                {typeof IconLoading === 'function' ? (
+                  <IconLoading />
+                ) : (
+                  <img src={IconLoading} alt="iconLoading" className="h-5 w-5" />
+                )}
+              </span>
+            )}
+            {loadingText}
+            {loadingIcon?.position === 'right' && (
+              <span>
+
+                {typeof IconLoading === 'function' ? (
+                  <IconLoading />
+                ) : (
+                  <img src={IconLoading} alt="icon" className="h-5 w-5" />
+                )}
+              </span>
+            )}
+          </span>
+        ) 
+        : <LoaderDefaultIcon className='animate-spin h-5 w-5 text-white' /> 
+        : (
         <span className="flex items-center gap-1">
-          {icon && icon.position === 'left' && (
+          {icon?.position === 'left' && (
             <span>
               {typeof IconComponent === 'function' ? (
                 <IconComponent />
@@ -77,7 +83,7 @@ const Button = ({
             </span>
           )}
           {text}
-          {icon && icon.position === 'right' && (
+          {icon?.position === 'right' && (
             <span>
               {typeof IconComponent === 'function' ? (
                 <IconComponent />
