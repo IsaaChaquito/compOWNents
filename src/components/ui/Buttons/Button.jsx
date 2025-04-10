@@ -11,7 +11,7 @@ const Button = ({
   type = 'button',        // Tipo de botón
   disabled = false,       // Estado deshabilitado
   isLoading = false,      // Estado de carga
-  loadingText,
+  loadingText = 'Loading',
   loadingIcon = { content: () => <LoaderDefaultIcon className='animate-spin h-5 w-5 text-white' />, position: 'left' }   ,      // Icono de carga},
   onClick,                // Evento click
   tooltip,                // Tooltip para accesibilidad

@@ -2,14 +2,23 @@
 class ButtonBuilder {
   constructor() {
     this.classes = 'flex justify-center items-center rounded transition-all duration-150 focus:outline-none cursor-pointer user-select-none shadow-low text-nowrap active:scale-x-95 active:scale-y-85',
-    this.styles = {  };
+    this.styles = {  },
+    this.palette = {
+      primary: 'bg-[#0051ff]',
+      secondary: 'bg-gray-500',
+      success: 'bg-green-500',
+      warning: 'bg-yellow-500',
+      danger: 'bg-red-500',
+      white: 'bg-white',
+      black: 'bg-black',
+    }
   }
 
   primary( outline ) {
     this.classes +=
       outline === 'out' 
       ? ' bg-white text-blue-500 hover:text-white border border-blue-500 hover:bg-blue-500' 
-      : ' bg-blue-500 text-white hover:bg-blue-600 focus:bg-blue-600'
+      : ` ${this.palette.primary} text-white hover:bg-blue-600 focus:bg-blue-600`
     
     return this;
   }

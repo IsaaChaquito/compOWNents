@@ -1,14 +1,39 @@
 
 import { useProvider } from '../../context/useProvider'
 import { Link } from 'react-router'
-// import { SolarDoubleAltArrowRightBoldDuotone, LineMdChevronTripleRight } from '../../assets/icons'
+import HambugerMenu from '../HambugerMenu'
+
+
 
 export const Drawer = () => {
   
   const { drawerState, drawerDispatch } = useProvider()
 
+  const toggleDrawer = () => {
+    drawerDispatch({ 
+      type: 'SET_IS_EXPANDED', 
+      payload: !drawerState.isExpanded 
+    });
+  };
+
   return (
-    <div className='min-w-[var(--drawer-width)] max-w-[var(--drawer-width)] h-full flex flex-col items-center shadow'>
+    <div className='min-w-[var(--drawer-width)] max-w-[var(--drawer-width)] h-screen sticky top-0 flex flex-col items-center shadow'>
+
+    <div className={`duration-300 ease-in-out w-full p-2 mx-4` }>
+        <HambugerMenu 
+          isExpanded={drawerState.isExpanded}
+          toggleDrawer={toggleDrawer}
+        />
+        {/* <div 
+          onClick={toggleDrawer}
+          className=' z-10 flex flex-col gap-2 w-8 h-8 duration-300 hover:bg-black/10 overflow-hidden my-1.5'>
+
+          {drawerState.isExpanded 
+            ? <LayoutSidebarFilled className="w-7 h-7" /> 
+            : <LayoutSidebar className="w-7 h-7" />}
+
+        </div> */}
+      </div>
       
       <h1 className='DRAWER-TITLE text-2xl py-1 font-medium '>Components</h1>
 

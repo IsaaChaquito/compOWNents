@@ -46,3 +46,11 @@ const drawerReducer = ( state = initialState, action ) => {
 }
 
 export default drawerReducer
+
+//How to use the reducer
+// const [drawerState, drawerDispatch] = useReducer( drawerReducer, initialState )
+// drawerDispatch( { type: 'SET_IS_EXPANDED', payload: true } )
+// drawerDispatch( { type: 'SET_OPTION_SELECTED', payload: 'Buttons' } )
+
+
+

@@ -16,7 +16,7 @@ export const Footer = () => {
       </p>
 
       <div className='icon-section flex justify-center items-center gap-x-3 *:text-gray-500 '>
-        <a href="https://github.com/IsaaChaquito/case-notes-clue" target='_blank' className="cursor-pointer ">
+        <a href="https://github.com/IsaaChaquito/compOWNents" target='_blank' className="cursor-pointer ">
           <GithubIcon className="w-5 h-5 hover:text-gray-400 duration-300"/>
         </a>
 

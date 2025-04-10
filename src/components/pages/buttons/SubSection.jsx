@@ -1,9 +1,9 @@
 
 
 
-export const SubSection = ({ subTitle, description, children }) => {
+export const SubSection = ({ id, subTitle, description, children }) => {
   return (
-    <section className="w-full p-3 mb-5 flex flex-col">
+    <section id={id} className="w-full p-3 mb-5 flex flex-col">
 
       <div className='flex flex-col gap-2'>
         <h1 className='text-3xl font-medium'> {subTitle} </h1>

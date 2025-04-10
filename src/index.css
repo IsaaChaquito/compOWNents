@@ -2,10 +2,24 @@
 
 @import "tailwindcss";
 
+
 @theme{
   --navbar-height: 60px;
   --drawer-width: 180px;
+  --color-primary: '#0118D8';
+  --color-secondary: '';
+  --color-success: '';
+  --color-warning: '';
+  --color-danger: '';
+  --color-neutral: '';
+  /* --color-black: ''; */
+  /* --color-white: ''; */
+
+  --hamburger-size: 24px;
 }
+
+
+
 
 :root {
 
@@ -39,6 +53,10 @@
   16.1px 16.5px 34.6px hsl(var(--shadow-color) / 0.48);
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 .shadow-low{
   box-shadow: var(--shadow-elevation-low);
   &:active{
@@ -61,3 +79,4 @@
   -webkit-clip-path: polygon(0 0, 100% 0, 75% 90%, 25% 90%);
   clip-path: polygon(0 0, 100% 0, 75% 90%, 25% 90%);
 }
+
