@@ -3,13 +3,11 @@ import 'delicious-hamburgers/dist/hamburgers.css';
 
 const HamburgerMenu = ( {isExpanded, toggleDrawer} ) => {
 
-  
-
 
   return (
     <button
       onClick={toggleDrawer}
-      className={` !rounded !bg-black/7 hover:!bg-black/20 hamburger hamburger--flatten ${isExpanded ? 'active' : ''}`}
+      className={` !rounded !bg-black/7 hover:!bg-black/20 hamburger hamburger--flatten ${!isExpanded ? 'active' : ''}`}
       type="button"
       aria-label="Menu"
       aria-expanded={isExpanded}

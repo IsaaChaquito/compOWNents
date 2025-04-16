@@ -227,15 +227,19 @@ export const ButtonsPage = () => {
               <Button 
                 variant='xxl' 
                 text='Button' 
-                className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white box !px-12' 
+                className='box bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white !px-12' 
               />
             </div>
 
             <CodeBlock>
               {
-                `<Button variant='md' text='Button' className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white box !px-12' />`
+                `<Button variant='md' text='Button' className='box bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white !px-12' />`
               }
             </CodeBlock>
+
+            <span>
+            In this case we use a custom css class called <code className='font-bold'>box</code> for the left and right button edges. 
+          </span>
           </SubSection>
 
         <SubSection id='loading-state' subTitle='Loading state' description='You can set the loading state with the isLoading prop:'>

@@ -4,8 +4,8 @@ import Navbar from '../UI/navbar/Navbar';
 import Drawer from '../UI/drawer/Drawer';
 import { Outlet } from 'react-router';
 import Footer from '../components/Footer';
-import { RightHandIcon } from '../assets/icons';
 import { useProvider } from '../context/useProvider';
+import { RightSidebarMenu } from './rightSidebar/RightSidebarMenu';
 
 export const navigationItems = [
   {
@@ -55,7 +55,7 @@ export const navigationItems = [
   },
   {
     id: 10,
-    name: 'Neon glow master mega epic 3000',
+    name: 'Neon glow master mega epic 30000',
     link: '#neon-glow',
   },
 ]
@@ -81,46 +81,27 @@ export const MainLayout = () => {
 
       {/* Left Sidebar */}
       <aside
-        className={`relative bg-gray-100  transition-all duration-300 ease-in-out ${
-          drawerState.isExpanded ? 'w-[var(--drawer-width)]' : 'w-16 !px-0 '
-        }`}
+        className={` h-screen sticky top-0 bg-gray-100`}
       >
-        <Drawer />
+        <Drawer isExpanded={drawerState.isExpanded} />
       </aside>
 
       {/* Content */}
-      <main className="bg-white overflow-x-hidden z-10 relative w-full">
+      <main className="bg-white overflow-x-hidden z-10 relative w-full mb-24">
         <Outlet/>
       </main>
 
       {/* Right Sidebar */}
-      <aside className="bg-gray-100 p-4 w-[var(--drawer-width)] sticky top-0 right-0 bottom-0 left-0 h-[calc(100vh_+_var(--navbar-height))] overflow-y-auto">
-        <h2 className='font-bold text-sm'>Viewing</h2>
-        <ul className='px-4 *:py-1 relative'>
-          <RightHandIcon 
-            style={{
-              transform: `translateY(${32 * (activeItem - 1)}px)`,
-            }}
-            className='w-6.5 h-6.5 absolute top-1 -left-2.5 duration-300 ease-in-out text-indigo-500' 
-          />
-
-          {navigationItems.map((item) => (
-            <li 
-              onClick={() => setActiveItem(item.id)}
-              className={`cursor-pointer p-2 overflow-hidden text-ellipsis whitespace-nowrap duration-300 ease-in-out rounded-r-full hover:bg-gray-500/10 ${activeItem === item.id ? 'bg-indigo-500/10 ' : ''}`} 
-              key={item.id}
-              title={item.name}
-            >
-              <a 
-                href={item.link}
-                className={` ${activeItem === item.id ? 'text-indigo-500/100' : ''}`}
-              >
-                {item.name}
-              </a>
-            </li>
-          ))}
-
-        </ul>
+      <aside className="bg-gray-100 h-screen sticky top-0 overflow-y-auto ">
+        {
+          navigationItems?.length > 0 && (
+            <RightSidebarMenu 
+              items={navigationItems} 
+              activeItem={activeItem} 
+              setActiveItem={setActiveItem} 
+            />
+          )
+        }
       </aside>
 
       {/* Footer */}
