@@ -1,6 +1,6 @@
 
 import { createContext, useReducer } from 'react'
-import drawerReducer, { initialState as drawerInitialState } from '../UI/drawer/reducer'
+import drawerReducer, { initialState as drawerInitialState } from './reducers/drawerReducer'
 
 
 

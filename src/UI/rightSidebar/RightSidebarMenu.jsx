@@ -44,7 +44,7 @@ export const RightSidebarMenu = ( { items, activeItem, setActiveItem } ) => {
             className={`  ${activeItem === item.id ? 'text-indigo-500' : ''}`}
             >
               <li 
-                className={`cursor-pointer text-sm xl:text-base p-1 overflow-hidden text-ellipsis whitespace-nowrap duration-300 ease-in-out rounded-md hover:bg-gray-500/10 ${activeItem === item.id ? 'bg-indigo-500/10 ' : ''}`} 
+                className={`cursor-pointer text-sm xl:text-base p-1 truncate duration-300 ease-in-out rounded-md hover:bg-gray-500/10 ${activeItem === item.id ? 'bg-indigo-500/10 ' : ''}`} 
                 title={item.name}
               >
 

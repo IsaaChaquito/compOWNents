@@ -6,6 +6,8 @@ import { Outlet } from 'react-router';
 import Footer from '../components/Footer';
 import { useProvider } from '../context/useProvider';
 import { RightSidebarMenu } from './rightSidebar/RightSidebarMenu';
+import { Console } from './console/Console';
+import Reducers from '../context/reducers';
 
 export const navigationItems = [
   {
@@ -89,6 +91,7 @@ export const MainLayout = () => {
       {/* Content */}
       <main className="bg-white overflow-x-hidden z-10 relative w-full mb-24">
         <Outlet/>
+        <Reducers />
       </main>
 
       {/* Right Sidebar */}
@@ -103,6 +106,11 @@ export const MainLayout = () => {
           )
         }
       </aside>
+
+      <div className='flex justify-end sticky bottom-0 p-2 col-span-3 w-full z-10 pointer-events-none'>
+        <Console output={'response by clicking the button'} />
+      </div>
+
 
       {/* Footer */}
       <footer className="col-span-3 bg-gray-800 text-white z-10">
