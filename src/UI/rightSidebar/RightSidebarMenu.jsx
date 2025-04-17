@@ -11,11 +11,12 @@ export const RightSidebarMenu = ( { items, activeItem, setActiveItem } ) => {
     const handleResize = () => {
       setWidthScreen(window.innerWidth)
     }
+  
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [widthScreen])
 
-  console.log(widthScreen)
+  // console.log(widthScreen)
 
   const getPixels = () => {
     if (widthScreen < 1280) {

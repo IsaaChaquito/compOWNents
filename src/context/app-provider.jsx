@@ -1,33 +1,42 @@
 
 import { createContext, useReducer } from 'react'
-import drawerReducer, { initialState as drawerInitialState } from './reducers/drawerReducer'
-
-
+import rootReducer from './reducers'
+import { initialState as drawerInitialState } from './reducers/drawerReducer'
+import { initialState as consoleInitialState } from './reducers/consoleReducer'
 
 export const AppContext = createContext();
 
 /**
- * AppProvider component that initializes the application context and provides 
- * it to its children. It manages notification state using a reducer and modal 
- * state using useState. The context value includes notification state and dispatch 
- * functions, as well as modal state and its setter function.
+ * @fileoverview Proveedor de contexto principal para la aplicación
  * 
- * @param {object} props - The component props.
- * @param {ReactNode} props.children - The child components that will have access 
- * to the AppContext.
+ * Este archivo define el contexto de la aplicación y el proveedor que envuelve
+ * la aplicación para proporcionar acceso al estado global y las funciones de despacho.
  * 
- * @returns {JSX.Element} A context provider component that wraps its children 
- * with the AppContext.
+ * @module AppProvider
  */
+
+/**
+ * Contexto de la aplicación que contiene el estado global y las funciones de despacho.
+ * Utilizado por los componentes para acceder y modificar el estado de la aplicación.
+ * 
+ * @type {React.Context}
+ */
+
+
 export const AppProvider = ({ children }) => {
+
+  const initialState = {
+    drawer: drawerInitialState,
+    console: consoleInitialState,
+  }
   
-  const [drawerState, drawerDispatch] = useReducer(drawerReducer, drawerInitialState);
+  const [state, dispatch] = useReducer(rootReducer, initialState);
 
   return (
     <AppContext.Provider value={
       { 
-        drawerState,
-        drawerDispatch,
+        state,
+        dispatch,
       }
     }>
       {children}

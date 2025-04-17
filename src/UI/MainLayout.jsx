@@ -7,7 +7,6 @@ import Footer from '../components/Footer';
 import { useProvider } from '../context/useProvider';
 import { RightSidebarMenu } from './rightSidebar/RightSidebarMenu';
 import { Console } from './console/Console';
-import Reducers from '../context/reducers';
 
 export const navigationItems = [
   {
@@ -64,18 +63,19 @@ export const navigationItems = [
 
 export const MainLayout = () => {
 
-  const [activeItem, setActiveItem] = useState(1);
-  const { drawerState, drawerDispatch } = useProvider()
+  const { state, dispatch } = useProvider()
+  const [activeItem, setActiveItem] = useState(1)
 
+  // console.log(state)
 
   return (
     <div className="min-h-screen w-full grid grid-rows-[auto_1fr_auto] grid-cols-[auto_1fr_auto] relative">
+      {/* <pre>{JSON.stringify(state, null, 2)}</pre> */}
       {/* Navbar */}
       <header className="col-span-3 bg-gray-800 text-white">
         <Navbar 
           onMenuClick={
-            // () => setDrawerOpen(!isDrawerOpen)
-            () => drawerDispatch({ type: 'SET_IS_EXPANDED', payload: !drawerState.isExpanded })
+            () => dispatch({ type: 'drawer/SET_IS_EXPANDED', payload: !state?.drawer?.isExpanded })
           } 
         />
       </header>
@@ -85,13 +85,12 @@ export const MainLayout = () => {
       <aside
         className={` h-screen sticky top-0 bg-gray-100`}
       >
-        <Drawer isExpanded={drawerState.isExpanded} />
+        <Drawer />
       </aside>
 
       {/* Content */}
       <main className="bg-white overflow-x-hidden z-10 relative w-full mb-24">
         <Outlet/>
-        <Reducers />
       </main>
 
       {/* Right Sidebar */}

@@ -8,23 +8,26 @@ import { LineMdChevronTripleRight } from '../../assets/icons'
 
 export const Drawer = () => {
   
-  const { drawerState, drawerDispatch } = useProvider()
+
+  const { state, dispatch } = useProvider()
+
+  // console.log(useProvider())
 
   const toggleDrawer = () => {
-    drawerDispatch({ 
-      type: 'SET_IS_EXPANDED', 
-      payload: !drawerState.isExpanded 
+    dispatch({ 
+      type: 'drawer/SET_IS_EXPANDED', 
+      payload: !state.drawer.isExpanded 
     });
   };
 
   return (
     <div className={`${
-          drawerState.isExpanded ? ' w-[var(--drawer-width)] xl:w-[12rem]' : 'w-16 !px-0 '
+          state.drawer.isExpanded ? ' w-[var(--drawer-width)] xl:w-[12rem]' : 'w-16 !px-0 '
         } transition-all duration-300 ease-in-out h-screen sticky top-0 left-0 bottom-0 flex flex-col items-center shadow`}>
 
       <div className={`duration-300 ease-in-out w-full p-2 mx-4` }>
         <HambugerMenu 
-          isExpanded={drawerState.isExpanded}
+          isExpanded={state.drawer.isExpanded}
           toggleDrawer={toggleDrawer}
         />
       </div>
@@ -34,35 +37,35 @@ export const Drawer = () => {
           Components
         </h1>
         <p className='text-xs text-gray-500'>
-          {drawerState.isExpanded ? 'Logo' : ''}
+          {state.drawer.isExpanded ? 'Logo' : ''}
         </p>
       </div>
 
       <section className='flex flex-col items-start  w-full text-sm xl:text-base'>
         {
-          drawerState?.options &&
-          Object.entries(drawerState?.options).map(([key, value]) => (
+          state.drawer?.options &&
+          Object.entries(state.drawer?.options).map(([key, value]) => (
             <Link
               to={value.link}
               // to={'/components'}
               key={key}
               onClick={
-                () => drawerDispatch({ 
-                  type: 'SET_OPTION_SELECTED', 
+                  () => dispatch({ 
+                  type: 'drawer/SET_OPTION_SELECTED', 
                   payload: value.title 
                 })
               }
-              className={`flex justify-between items-center relative overflow-hidden w-full text-left py-1.5 px-3 duration-75  ${drawerState.optionSelected === value.title ? 'bg-gray-300 ' : 'hover:bg-gray-200'}`}
+              className={`flex justify-between items-center relative overflow-hidden w-full text-left py-1.5 px-3 duration-75  ${state.drawer.optionSelected === value.title ? 'bg-gray-300 ' : 'hover:bg-gray-200'}`}
             >
               <p 
-                className={`select-none pointer-events-none duration-300 w-fit  ${drawerState.optionSelected === value.title ? 'translate-x-3  ' : ''}`}
+                className={`select-none pointer-events-none duration-300 w-fit  ${state.drawer.optionSelected === value.title ? 'translate-x-3  ' : ''}`}
               >
                 {value.title}
               </p>
               {
-                drawerState.optionSelected === value.title &&
+                state.drawer.optionSelected === value.title &&
                 <LineMdChevronTripleRight 
-                  className={`w-5 h-5 text-slate-500 absolute right-10 top-1/2 -translate-y-1/2 select-none pointer-events-none duration-300 ${drawerState.optionSelected === value ? 'translate-x-5  ' : 'opacity-0'}`} 
+                  className={`w-5 h-5 text-slate-500 absolute right-10 top-1/2 -translate-y-1/2 select-none pointer-events-none duration-300 ${state.drawer.optionSelected === value ? 'translate-x-5  ' : 'opacity-0'}`} 
                 />
                 // <div className='w-5 h-5 text-black rounded-md ring text-xs text-center select-none pointer-events-none duration-300'>
                 //   ok

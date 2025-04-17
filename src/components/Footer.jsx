@@ -1,12 +1,8 @@
-import { useEffect } from 'react'
+
 import { GithubIcon, HeartIcon, LinkedInIcon } from '../assets/icons'
 
 export const Footer = ( {flexDirection = 'flex-col'} ) => {
 
-  useEffect(() => {
-    console.log(flexDirection)
-  }, [flexDirection])
-  
 
   return (
     <div className={`py-5 w-full h-auto flex ${flexDirection} justify-around items-center  gap-5 bg-black border-t border-slate-600`}>

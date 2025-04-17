@@ -17,6 +17,14 @@ export const initialState = {
     tooltips: {
       title: 'Tooltips',
       link: '/tooltips',
+    },
+    badges: {
+      title: 'Badges',
+      link: '/badges',
+    },
+    textarea: {
+      title: 'Textarea',
+      link: '/textarea',
     }
   },
   isExpanded: true,
@@ -25,14 +33,14 @@ export const initialState = {
 
 
 export const actions = {
-  SET_IS_EXPANDED: ( state, action ) => (
+  'drawer/SET_IS_EXPANDED': ( state, action ) => (
     {
       ...state,
       isExpanded: action.payload
     }
   ),
 
-  SET_OPTION_SELECTED: ( state, action ) => (
+  'drawer/SET_OPTION_SELECTED': ( state, action ) => (
     {
       ...state,
       optionSelected: action.payload
@@ -47,10 +55,8 @@ const drawerReducer = ( state = initialState, action ) => {
 
 export default drawerReducer
 
-//How to use the reducer
-// const [drawerState, drawerDispatch] = useReducer( drawerReducer, initialState )
-// drawerDispatch( { type: 'SET_IS_EXPANDED', payload: true } )
-// drawerDispatch( { type: 'SET_OPTION_SELECTED', payload: 'Buttons' } )
+
+
 
 
 

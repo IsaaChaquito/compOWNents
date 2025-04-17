@@ -1,25 +1,25 @@
 
-const initialState = {
+export const initialState = {
   text: '',
   isExpanded: false,
 }
 
 export const actions = {
-  SET_TEXT: ( state, action ) => (
+  'console/SET_TEXT': ( state, action ) => (
     {
       ...state,
       text: action.payload
     }
   ),
 
-  CLEAR_TEXT: ( state ) => (
+  'console/CLEAR_TEXT': ( state ) => (
     {
       ...state,
       text: ''
     }
   ),
 
-  SET_IS_EXPANDED: ( state, action ) => (
+  'console/SET_IS_EXPANDED': ( state, action ) => (
     {
       ...state,
       isExpanded: action.payload
