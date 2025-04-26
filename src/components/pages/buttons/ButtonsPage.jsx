@@ -99,7 +99,7 @@ export const sections = [
 
 export const ButtonsPage = () => {
 
-  const { dispatch } = useProvider()
+  const { state, dispatch } = useProvider()
   const [isLoading, setIsLoading] = useState(false);
   const [timed, setTimed] = useState(10);
   const [scrollY, setScrollY] = useState(window.scrollY);
@@ -107,7 +107,7 @@ export const ButtonsPage = () => {
     useEffect(() => {
       dispatch({ type: 'rightSidebar/SET_SECTIONS', payload: sections })
       dispatch({ type: 'rightSidebar/SET_ACTIVE_SECTION', payload: 1 })
-    }, [])
+    }, [state?.rightSidebar?.sections])
 
   const handleLoading = () => {
     setIsLoading(true)
@@ -373,7 +373,7 @@ export const ButtonsPage = () => {
   text="Reiniciar contador"
   timed={
     {
-      time: 19, //time in seconds
+      time: 10, //time in seconds
     }
   }
   tooltip={"Haz clic para reiniciar el contador"}
@@ -386,7 +386,7 @@ export const ButtonsPage = () => {
   text="Reiniciar contador"
   timed={
     {
-      time: 19, //time in seconds
+      time: 10, //time in seconds
       proggressColor: 'bg-blue-800',
       decrease: true
     }

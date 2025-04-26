@@ -3,6 +3,7 @@ import { createContext, useReducer } from 'react'
 import rootReducer from './reducers'
 import { initialState as drawerInitialState } from './reducers/drawerReducer'
 import { initialState as consoleInitialState } from './reducers/consoleReducer'
+import { initialState as rightSidebarInitialState } from './reducers/rightSidebarReducer'
 
 export const AppContext = createContext();
 
@@ -28,6 +29,7 @@ export const AppProvider = ({ children }) => {
   const initialState = {
     drawer: drawerInitialState,
     console: consoleInitialState,
+    rightSidebar: rightSidebarInitialState
   }
   
   const [state, dispatch] = useReducer(rootReducer, initialState);

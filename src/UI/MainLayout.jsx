@@ -12,6 +12,8 @@ export const MainLayout = () => {
 
   const { state, dispatch } = useProvider()
 
+  // console.log(state);
+
   useEffect(() => {
     const handleScroll = () => {
       // Obtener todas las secciones
@@ -27,12 +29,12 @@ export const MainLayout = () => {
         
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
           // console.log('sectionId', sectionId);
-          // console.log('index', state?.rightSidebar?.sections.findIndex( section => section.link === sectionId ));
+          // console.log('stateSections', state?.rightSidebar?.sections);
+          // console.log('section finder: ', state?.rightSidebar?.sections.find( section => section?.link === sectionId ));
           dispatch({ 
             type: 'rightSidebar/SET_ACTIVE_SECTION', 
-            payload: state?.rightSidebar?.sections.find( section => section?.link === `${sectionId}` )?.id
+            payload: state?.rightSidebar?.sections.find( section => section?.link === sectionId )?.id || 1
           })
-          // console.log('activeSection', state?.rightSidebar?.activeSection);
         }
       });
     };
@@ -47,18 +49,14 @@ export const MainLayout = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [window.scrollY]);
 
   return (
     <div className="min-h-screen w-full grid grid-rows-[auto_1fr_auto] grid-cols-[auto_1fr_auto] relative">
       {/* <pre>{JSON.stringify(state, null, 2)}</pre> */}
       {/* Navbar */}
       <header className="col-span-3 bg-gray-800 text-white">
-        <Navbar 
-          onMenuClick={
-            () => dispatch({ type: 'drawer/SET_IS_EXPANDED', payload: !state?.drawer?.isExpanded })
-          } 
-        />
+        <Navbar />
       </header>
       
 

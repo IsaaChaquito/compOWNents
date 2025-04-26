@@ -27,6 +27,7 @@ export const RightSidebarMenu = ( { sections, activeSection, setActiveSection } 
   }
 
   const onHandleSectionClick = ( sectionId ) => {
+    // console.log('click on section', sectionId);
     activeSection 
     ? setActiveSection( sectionId )
     : dispatch({type: 'rightSidebar/SET_ACTIVE_SECTION', payload: sectionId})

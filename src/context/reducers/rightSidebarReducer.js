@@ -1,38 +1,4 @@
-// export const initialState = {
-//   items: [
-//     {
-//       id: 1,
-//       name: 'Buttons',
-//       link: '/buttons',
-//     },
-//     {
-//       id: 2,
-//       name: 'Inputs',
-//       link: '/inputs',
-//     },
-//     {
-//       id: 3,
-//       name: 'Selects',
-//       link: '/selects',
-//     },
-//     {
-//       id: 4,
-//       name: 'Tooltips',
-//       link: '/tooltips',
-//     },
-//     {
-//       id: 5,
-//       name: 'Badges',
-//       link: '/badges',
-//     },
-//     {
-//       id: 6,
-//       name: 'Textarea',
-//       link: '/textarea',
-//     },
-//   ],
-//   activeItem: 1,
-// }
+
 
 export const initialState = {
   activeSection: 1,
