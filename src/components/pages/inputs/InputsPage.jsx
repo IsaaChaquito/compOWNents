@@ -1,10 +1,46 @@
 import CodeBlock from '../../CodeBlock';
 import { SubSection } from './SubSection';
 import Input from '../../ui/Inputs/Input';
+import { useEffect } from 'react';
+import { useProvider } from '../../../context/useProvider';
 
-
+export const sections = [
+  {
+    id:   1,
+    name: 'Classic',
+    link: '#classic',
+  },
+  {
+    id:   2,
+    name: 'Disabled',
+    link: '#disabled',
+  },
+  {
+    id:   3,
+    name: 'Sizes',
+    link: '#sizes',
+  },
+  {
+    id:   4,
+    name: 'Borderless',
+    link: '#borderless',
+  },
+  {
+    id:   5,
+    name: 'Floating Placeholder',
+    link: '#floating-placeholder',
+  }
+]
 
 export const InputsPage = () => {
+
+    const { dispatch } = useProvider()
+
+  
+    useEffect(() => {
+      dispatch({ type: 'rightSidebar/SET_ACTIVE_SECTION', payload: 1 })
+      dispatch({ type: 'rightSidebar/SET_SECTIONS', payload: sections })
+    }, [])
 
   return (
     <div className='w-fulll h-full flex flex-col items-center overflow-x-hidden'>

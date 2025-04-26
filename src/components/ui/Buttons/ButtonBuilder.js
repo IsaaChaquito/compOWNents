@@ -1,7 +1,7 @@
 // ButtonBuilder.js
 class ButtonBuilder {
   constructor() {
-    this.classes = 'flex justify-center items-center rounded transition-all duration-150 focus:outline-none cursor-pointer user-select-none shadow-low text-nowrap active:scale-x-95 active:scale-y-85',
+    this.classes = 'relative flex justify-center items-center rounded transition-all duration-150 focus:outline-none cursor-pointer user-select-none shadow-low text-nowrap overflow-hidden',
     this.styles = {  },
     this.palette = {
       primary: 'bg-[#0051ff]',
@@ -18,7 +18,7 @@ class ButtonBuilder {
     this.classes +=
       outline === 'out' 
       ? ' bg-white text-blue-500 hover:text-white border border-blue-500 hover:bg-blue-500' 
-      : ` ${this.palette.primary} text-white hover:bg-blue-600 focus:bg-blue-600`
+      : ` ${this.palette.primary} text-white hover:bg-blue-700 focus:bg-blue-700`
     
     return this;
   }
@@ -100,7 +100,7 @@ class ButtonBuilder {
   }
 
   md() {
-    this.classes += ' text-base px-2 py-1.5 h-fit'
+    this.classes += ' text-base px-2 py-1.5 h-fit min-w-fit'
     return this;
   }
 
@@ -141,6 +141,11 @@ class ButtonBuilder {
 
   text(color) {
     this.styles.color = color;
+    return this;
+  }
+
+  pressable() {
+    this.classes += ' active:scale-x-95 active:scale-y-85 ';
     return this;
   }
   

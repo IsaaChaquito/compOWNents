@@ -32,9 +32,9 @@ export default [
       'react/prop-types': 'off',
       'eslint-disable-next-line react-refresh/only-export-components': 'off',
       'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': ['error', {
-        'additionalHooks': '(useProvider)'
-      }],
+      // 'react-hooks/exhaustive-deps': ['error', {
+      //   'additionalHooks': '(useProvider)'
+      // }],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },

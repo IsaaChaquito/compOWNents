@@ -2,9 +2,10 @@
 import { useMemo } from 'react';
 import ButtonBuilder2 from './ButtonBuilder';
 import { LoaderDefaultIcon } from '../../../assets/icons';
+import useTimer from '../../../hooks/timer';
 
 const Button = ({
-  variant = '',           // Ejemplo: 'primary color-#ffffff'
+  variant = 'md',           // Ejemplo: 'primary color-#ffffff'
   className = '',         // Clases adicionales
   text = 'Click me',      // Texto del botón
   icon = null,            // { position: 'left'|'right', content: 'url'|<Component> }
@@ -15,7 +16,10 @@ const Button = ({
   loadingIcon = { content: () => <LoaderDefaultIcon className='animate-spin h-5 w-5 text-white' />, position: 'left' }   ,      // Icono de carga},
   onClick,                // Evento click
   tooltip,                // Tooltip para accesibilidad
+  timed                   // Tiempo de duración en segundos
 }) => {
+
+  const { timer, splitTimer } = useTimer(timed?.time);
 
   const btnClasses = variant.trim().split(' ').filter(Boolean);
 
@@ -35,9 +39,10 @@ const Button = ({
   const IconComponent = icon?.content;
   const IconLoading = loadingIcon?.content;
 
+
   return (
     <button
-      onClick={() => !disabled && !isLoading && onClick?.()} // Evita clics si está disabled o loading
+      onClick={() => !disabled && !isLoading && onClick?.(timed)} // Evita clics si está disabled o loading} // Evita clics si está disabled o loading
       className={`${className} ${builderState?.classes || ''} ${icon ? ' flex items-center gap-2' : ''} ${
         disabled ? 'pointer-events-none opacity-50 select-none' : ''
       } ${isLoading ? 'pointer-events-none' : ''}`}
@@ -45,9 +50,21 @@ const Button = ({
       type={type}
       title={tooltip}
     >
+
+      { timed &&
+        <div 
+          style={{ 
+            transform: `scaleX(${timed?.decrease ? (timer / (timed?.time * 1000)) : (1 - (timer / (timed?.time * 1000)))})`, 
+            transformOrigin: 'left',
+            width: '100%' // Cambiar de 0% a 100%
+          }}
+          className={`absolute h-full transition-all duration-20 ease-linear left-0 top-0 z-0 ${timed?.proggressColor || 'bg-black'}`} 
+        />
+      }
+
       {isLoading ? 
         loadingIcon ? (
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1 z-10">
             {loadingIcon?.position === 'left' && (
               <span>
                 {typeof IconLoading === 'function' ? (
@@ -59,7 +76,7 @@ const Button = ({
             )}
             {loadingText}
             {loadingIcon?.position === 'right' && (
-              <span>
+              <span className='z-10'>
 
                 {typeof IconLoading === 'function' ? (
                   <IconLoading />
@@ -70,9 +87,9 @@ const Button = ({
             )}
           </span>
         ) 
-        : <LoaderDefaultIcon className='animate-spin h-5 w-5 text-white' /> 
+        : <LoaderDefaultIcon className='animate-spin h-5 w-5 text-white z-10' /> 
         : (
-        <span className="flex items-center gap-1">
+        <span className="flex items-center gap-1 z-10">
           {icon?.position === 'left' && (
             <span>
               {typeof IconComponent === 'function' ? (
@@ -82,7 +99,9 @@ const Button = ({
               )}
             </span>
           )}
-          {text}
+          <span className='z-10'>
+            {text} {timed && '(' + splitTimer(timer/1000) + ')'} 
+          </span>
           {icon?.position === 'right' && (
             <span>
               {typeof IconComponent === 'function' ? (
@@ -94,8 +113,9 @@ const Button = ({
           )}
         </span>
       )}
+
     </button>
   );
-}
+};
 
 export default Button

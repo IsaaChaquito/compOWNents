@@ -1,5 +1,5 @@
 // src/layouts/MainLayout.jsx
-import { useState } from 'react';
+import { useEffect } from 'react';
 import Navbar from '../UI/navbar/Navbar';
 import Drawer from '../UI/drawer/Drawer';
 import { Outlet } from 'react-router';
@@ -8,65 +8,46 @@ import { useProvider } from '../context/useProvider';
 import { RightSidebarMenu } from './rightSidebar/RightSidebarMenu';
 import { Console } from './console/Console';
 
-export const navigationItems = [
-  {
-    id: 1,
-    name: 'Classics',
-    link: '#classics',
-  },
-  {
-    id: 2,
-    name: 'Disabled',
-    link: '#disabled',
-  },
-  {
-    id: 3,
-    name: 'Sizes',
-    link: '#sizes',
-  },
-  {
-    id: 4,
-    name: 'Outlined',
-    link: '#outlined',
-  },
-  {
-    id: 5,
-    name: 'Solid',
-    link: '#solid',
-  },
-  {
-    id: 6,
-    name: 'Custom styles',
-    link: '#custom-styles',
-  },
-  {
-    id: 7,
-    name: 'Custom classes',
-    link: '#custom-classes',
-  },
-  {
-    id: 8,
-    name: 'Loading state',
-    link: '#loading-state',
-  },
-  {
-    id: 9,
-    name: 'Timed button',
-    link: '#timed-button',
-  },
-  {
-    id: 10,
-    name: 'Neon glow master mega epic 30000',
-    link: '#neon-glow',
-  },
-]
-
 export const MainLayout = () => {
 
   const { state, dispatch } = useProvider()
-  const [activeItem, setActiveItem] = useState(1)
 
-  // console.log(state)
+  useEffect(() => {
+    const handleScroll = () => {
+      // Obtener todas las secciones
+      const sections = document.querySelectorAll('section'); // Ajusta a tus selectores
+
+      const scrollPosition = window.scrollY + 100; // Offset para activar un poco antes
+      
+      // Encontrar la sección actualmente visible
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          // console.log('sectionId', sectionId);
+          // console.log('index', state?.rightSidebar?.sections.findIndex( section => section.link === sectionId ));
+          dispatch({ 
+            type: 'rightSidebar/SET_ACTIVE_SECTION', 
+            payload: state?.rightSidebar?.sections.find( section => section?.link === `${sectionId}` )?.id
+          })
+          // console.log('activeSection', state?.rightSidebar?.activeSection);
+        }
+      });
+    };
+    
+    // Agregar event listener al montar el componente
+    window.addEventListener('scroll', handleScroll);
+    
+    // Ejecutar una vez para establecer la sección inicial
+    handleScroll();
+    
+    // Limpiar event listener al desmontar
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen w-full grid grid-rows-[auto_1fr_auto] grid-cols-[auto_1fr_auto] relative">
@@ -95,15 +76,9 @@ export const MainLayout = () => {
 
       {/* Right Sidebar */}
       <aside className="bg-gray-100 h-screen sticky top-0 overflow-y-auto ">
-        {
-          navigationItems?.length > 0 && (
-            <RightSidebarMenu 
-              items={navigationItems} 
-              activeItem={activeItem} 
-              setActiveItem={setActiveItem} 
-            />
-          )
-        }
+        
+      <RightSidebarMenu />
+        
       </aside>
 
       <div className='flex justify-end sticky bottom-0 p-2 col-span-3 w-full z-10 pointer-events-none'>

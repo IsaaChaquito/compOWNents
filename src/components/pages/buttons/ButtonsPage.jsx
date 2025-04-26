@@ -4,7 +4,8 @@ import { Buttons } from './Buttons';
 import { HeartIcon, LoaderCircular } from '../../../assets/icons';
 
 import Button from '../../ui/Buttons/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useProvider } from '../../../context/useProvider';
 
 export const sizeTypes = [
   'black xs',
@@ -38,70 +39,106 @@ export const customTypes = [
   'Button md',
 ]
 
-export const navigationItems = [
+export const sections = [
   {
     id: 1,
     name: 'Classics',
-    link: '#classics',
+    link: 'classics',
   },
   {
     id: 2,
     name: 'Disabled',
-    link: '#disabled',
+    link: 'disabled',
   },
   {
-    id: 3,
+    id:   3,
+    name: 'Pressable',
+    link: 'pressable',
+  },
+  {
+    id:   4,
     name: 'Sizes',
-    link: '#sizes',
+    link: 'sizes',
   },
   {
-    id: 4,
+    id:   5,
     name: 'Outlined',
-    link: '#outlined',
+    link: 'outlined',
   },
   {
-    id: 5,
+    id:     6,
     name: 'Solid',
-    link: '#solid',
+    link: 'solid',
   },
   {
-    id: 6,
-    name: 'Custom',
-    link: '#custom',
+    id:     7,
+    name: 'Custom styles',
+    link: 'custom-styles',
   },
   {
-    id: 7,
+    id:     8,
     name: 'Custom classes',
-    link: '#custom-classes',
+    link: 'custom-classes',
   },
   {
-    id: 8,
+    id:     9,
     name: 'Loading state',
-    link: '#loading-state',
+    link: 'loading-state',
   },
   {
-    id: 9,
+    id:     10,
     name: 'Timed button',
-    link: '#timed-button',
+    link: 'timed-button',
   },
   {
-    id: 10,
+    id:     11,
     name: 'Neon glow master mega epic 3000',
-    link: '#neon-glow',
+    link: 'neon-glow',
   },
 ]
 
 export const ButtonsPage = () => {
 
+  const { dispatch } = useProvider()
   const [isLoading, setIsLoading] = useState(false);
+  const [timed, setTimed] = useState(10);
+  const [scrollY, setScrollY] = useState(window.scrollY);
+  
+    useEffect(() => {
+      dispatch({ type: 'rightSidebar/SET_SECTIONS', payload: sections })
+      dispatch({ type: 'rightSidebar/SET_ACTIVE_SECTION', payload: 1 })
+    }, [])
+
   const handleLoading = () => {
     setIsLoading(true)
     setTimeout(() => {
       setIsLoading(false)
     }, Math.floor(Math.random() * 4000) + 1000)
+    onClickButton('Loading...')
   }
 
-  // const [activeItem, setActiveItem] = useState(1);
+  const onClickButton = ( msg ) => {
+    dispatch({ type: 'console/SET_TEXT', payload: msg })
+  }
+
+  const resetTimer = () => {
+    console.log('reset timer');
+    dispatch({ type: 'console/SET_TEXT', payload: 'reset timer' })
+    setTimed(1)
+    setTimeout(() => {
+      setTimed(10)
+    }, 0)
+  }
+
+  useEffect(() => {
+    // console.log('scrollY', scrollY);
+    setScrollY(window.scrollY)
+    addEventListener('scroll', () => setScrollY(window.scrollY));
+
+    return () => removeEventListener('scroll', () => setScrollY(window.scrollY));
+  }, [scrollY])
+
+  
 
   return (
     <div className='w-full flex'>
@@ -113,7 +150,7 @@ export const ButtonsPage = () => {
         
 
         <SubSection id='classics' subTitle='Classics' description='You can try different classic types:' showConsole={true}>
-          <Buttons types={regularTypes} />
+          <Buttons types={regularTypes} onClickButton={onClickButton} />
           <CodeBlock>
             {regularTypes
               .map(
@@ -128,20 +165,26 @@ export const ButtonsPage = () => {
           </span>
         </SubSection>
 
-        <SubSection id='disabled' subTitle='Disabled' description='You can disable buttons with the disabled prop:' >
-          <Buttons types={regularTypes} disabled={true} />
+        <SubSection id='disabled' subTitle='Disabled' description='You can disable a button with the disabled prop:' >
+          <div className='flex gap-2'>
+            <Button variant='primary md' text='Primary' disabled={true} />
+          </div>
           <CodeBlock>
-            {regularTypes
-              .map(
-                (type) =>
-                  `<Button variant='${type}' text='${type.split(' ')[0]}' disabled={true} />`
-              )
-              .join("\n")}
+            {`<Button variant='primary md' text='Primary' disabled={true} />`}
+          </CodeBlock>
+        </SubSection>
+
+        <SubSection id='pressable' subTitle='Pressable' description='You can add pressable variant effect to a button' >
+          <div className='flex gap-2'>
+            <Button variant='primary md pressable' text='Pressable' onClick={() => onClickButton('clicked: primary md pressable')} />
+          </div>
+          <CodeBlock>
+            {`<Button variant='primary md pressable' text='Primary' />`}
           </CodeBlock>
         </SubSection>
 
         <SubSection id='sizes' subTitle='Sizes' description='You can try different sizes:'>
-          <Buttons types={sizeTypes} />
+          <Buttons types={sizeTypes} onClickButton={onClickButton} />
           <CodeBlock>
             {sizeTypes
               .map(
@@ -153,7 +196,7 @@ export const ButtonsPage = () => {
         </SubSection>
 
         <SubSection id='outlined' subTitle='Outlined' description='You can try different outlined types:'>
-          <Buttons types={outlinedTypes} />
+          <Buttons types={outlinedTypes} onClickButton={onClickButton} />
           <CodeBlock>
             {outlinedTypes
               .map(
@@ -169,6 +212,7 @@ export const ButtonsPage = () => {
             <Button 
               variant='solid md' 
               text='Button' 
+              onClick={() => onClickButton('clicked: solid md')}
             />
 
           </div>
@@ -180,30 +224,35 @@ export const ButtonsPage = () => {
         <SubSection id='custom-styles' subTitle='Custom styles' description='You can customize the styles:'>
           <div className='flex gap-2'>
             <Button 
-              variant='md' 
-              text='Button' 
+              variant='md pressable' 
+              text='Button #1' 
               className='bg-indigo-700 hover:bg-indigo-800 text-white' 
+              onClick={() => onClickButton('clicked custom #1')}
             />
 
             <Button 
-              variant='md' 
-              text='Button' 
+              variant='md pressable' 
+              text='Button #2' 
+              onClick={() => onClickButton('clicked custom #2')}
               className='rounded-full bg-orange-500 hover:bg-orange-700 text-white w-full' 
             />
 
             <Button 
-              variant='md' 
-              text='Button' 
+              variant='md pressable' 
+              text='Button #3' 
+              onClick={() => onClickButton('clicked custom #3')}
               className='bg-conic/decreasing from-violet-700 via-lime-300 to-violet-700 hover:text-white rounded-tr-2xl rounded-bl-2xl' 
             />
 
             <Button
-              variant="md text-#ffc0cb  bg-black" // Clases para el builder
+              variant="md text-#ffc0cb  bg-black pressable" // Clases para el builder
               // text="Enviar formulario"
               className=' hover:!text-red-600 w-full rounded-full'
               // icon={{ position: 'right', content: () => <span>🚀</span> }}
               icon={{ position: 'right', content: () => <HeartIcon className=' text-red-600' /> }}
-              onClick={() => console.log('clicked button2')}
+              text='Click me #4'
+              onClick={() => onClickButton('clicked custom #4')}
+
             />
           </div>
 
@@ -211,12 +260,12 @@ export const ButtonsPage = () => {
             {
               
             
-              `<Button variant='md' text='Button' className='bg-indigo-700 hover:bg-indigo-800 text-white' />\n<Button variant='md' text='Button' className='w-full rounded-full bg-orange-500 hover:bg-orange-700 text-white' />\n<Button variant='md' text='Button' className='bg-conic/decreasing from-violet-700 via-lime-300 to-violet-700 hover:text-white rounded-tr-2xl rounded-bl-2xl' />\n<Button variant='md text-#ffc0cb  bg-black' className=' hover:!text-red-600 w-full rounded-full' 
+              `<Button variant='md pressable' text='Button #1' className='bg-indigo-700 hover:bg-indigo-800 text-white' onClick={() => onClickButton('clicked custom #1')} />\n<Button variant='md pressable' text='Button #2' className='w-full rounded-full bg-orange-500 hover:bg-orange-700 text-white' onClick={() => onClickButton('clicked custom #2')} />\n<Button variant='md pressable' text='Button #3' className='bg-conic/decreasing from-violet-700 via-lime-300 to-violet-700 hover:text-white rounded-tr-2xl rounded-bl-2xl' onClick={() => onClickButton('clicked custom #3')} />\n<Button variant='md pressable text-#ffc0cb  bg-black' className=' hover:!text-red-600 w-full rounded-full' 
           icon={{ 
             position: 'right', 
             content: () => <HeartIcon className=' text-red-600' /> 
           }} 
-          onClick={() => console.log('clicked me!')}  
+          onClick={() => onClickButton('clicked custom #4')}  
   />`
             }
           </CodeBlock>
@@ -225,9 +274,10 @@ export const ButtonsPage = () => {
         <SubSection id='custom-classes' subTitle='Custom classes' description='You can also add a specific css class or classes for specific results:'>
             <div>
               <Button 
-                variant='xxl' 
-                text='Button' 
-                className='box bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white !px-12' 
+                variant='xxl pressable' 
+                text='Custom classes' 
+                className='box bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white !px-20' 
+                onClick={() => onClickButton('clicked custom classes')}
               />
             </div>
 
@@ -253,7 +303,7 @@ export const ButtonsPage = () => {
 
           <Button
               variant="md bg-orange text-white"
-              className='w-full'
+              className='w-full hover:!bg-orange-400'
               text="Load data"
               isLoading={isLoading}
               loadingIcon={{ content: () => <LoaderCircular className='h-5 w-5 text-white' />, position: 'right' }}
@@ -285,36 +335,70 @@ export const ButtonsPage = () => {
 />`}
   </CodeBlock>
         </SubSection>
-      </div>
 
-      {/* <aside className="bg-gray-100 p-4 w-[var(--drawer-width)] sticky top-0 right-0 h-[calc(var(--drawer-height)_+_var(--drawer-width))] overflow-y-auto">
-        <h2 className='font-bold text-sm'>Viewing</h2>
-          <ul className='px-4 *:py-1 relative'>
-            <RightHandIcon 
-              style={{
-                transform: `translateY(${32 * (activeItem - 1)}px)`,
-              }}
-              className='w-6.5 h-6.5 absolute top-1 -left-2.5 duration-300 ease-in-out text-indigo-500' 
+        <SubSection id='timed-button' subTitle='Timed button' description='You can set a timer in a button with the timed prop:'>
+          <div className='flex gap-2 '>
+            <Button
+              variant="md pressable"
+              className='bg-stone-700 text-white'
+              text="Reiniciar contador"
+              timed={
+                {
+                  time: timed,
+                }
+              }
+              tooltip={"Haz clic para reiniciar el contador"}
+              onClick={() => resetTimer()}
             />
 
-            {navigationItems.map((item) => (
-              <li 
-                className={`p-2 overflow-hidden text-ellipsis whitespace-nowrap duration-300 ease-in-out ${activeItem === item.id ? 'bg-indigo-500/10 rounded-md' : ''}`} 
-                key={item.id}
-                title={item.name}
-              >
-                <a 
-                  href={item.link}
-                  onClick={() => setActiveItem(item.id)}
-                  className={` ${activeItem === item.id ? 'text-indigo-500/100 ' : ''}`}
-                >
-                  {item.name}
-                </a>
-              </li>
-            ))}
+            <Button
+              variant="md white pressable"
+              className='w-full'
+              text="Reiniciar contador"
+              timed={
+                {
+                  time: timed,
+                  proggressColor: 'bg-gray-300',
+                  decrease: true
+                }
+              }
+              tooltip={"Haz clic para reiniciar el contador"}
+              onClick={() => resetTimer()}
+            />
+          </div>
+  <CodeBlock>
+{`<Button
+  variant="md pressable"
+  className='bg-stone-700 text-white w-full'
+  text="Reiniciar contador"
+  timed={
+    {
+      time: 19, //time in seconds
+    }
+  }
+  tooltip={"Haz clic para reiniciar el contador"}
+  onClick={() => resetTimer()}
+/>
 
-          </ul>
-      </aside> */}
+<Button
+  variant="md primary pressable"
+  className='text-white w-full'
+  text="Reiniciar contador"
+  timed={
+    {
+      time: 19, //time in seconds
+      proggressColor: 'bg-blue-800',
+      decrease: true
+    }
+  }
+  tooltip={"Haz clic para reiniciar el contador"}
+  onClick={() => resetTimer(19)}
+/>`}
+  </CodeBlock>
+        </SubSection>
+      </div>
+
+
 
     </div>
   )

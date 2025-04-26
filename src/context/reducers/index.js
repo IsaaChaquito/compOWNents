@@ -1,5 +1,6 @@
 import drawerReducer from "./drawerReducer";
 import consoleReducer from "./consoleReducer";
+import rightSidebarReducer from "./rightSidebarReducer";
 
 // Reducer combinado que maneja todos los reducers anteriores
 function combineReducers(reducers) {
@@ -37,6 +38,7 @@ function combineReducers(reducers) {
 const rootReducer = combineReducers({
   drawer: drawerReducer,
   console: consoleReducer,
+  rightSidebar: rightSidebarReducer
 });
 
 export default rootReducer;
