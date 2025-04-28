@@ -23,22 +23,24 @@ export const Drawer = () => {
           state.drawer.isExpanded ? ' w-[var(--drawer-width)] xl:w-[12rem]' : 'w-16 !px-0 '
         } transition-all duration-300 ease-in-out h-screen sticky top-0 left-0 bottom-0 flex flex-col items-center shadow`}>
 
-      <div className={`duration-300 ease-in-out w-full p-2 mx-4` }>
+      {/* <div className={`duration-300 ease-in-out w-full p-2 mx-4` }>
         <HambugerMenu 
           isExpanded={state.drawer.isExpanded}
           toggleDrawer={toggleDrawer}
         />
-      </div>
+      </div> */}
       
-      <div className='flex items-center justify-center gap-2'>
-        <h1 className='DRAWER-TITLE text-xl xl:text-2xl py-1 font-medium '>
-        {state.drawer.isExpanded ? 'compOWNents' : ''}
-        </h1>
-        <p className='text-xs text-gray-500'>
-          {/* {state.drawer.isExpanded ? 'Logo' : ''} */}
-          <Logo className='' />
-        </p>
-      </div>
+      <button 
+        onClick={toggleDrawer} 
+        className='w-full cursor-pointer hover:bg-black/20 flex items-center justify-center gap-2'
+        title={`${state.drawer.isExpanded ? 'Close' : 'Open'} drawer`}
+      >
+        <div className='DRAWER-TITLE text-xl flex items-center py-1 font-medium '>
+          <span>{state.drawer.isExpanded && 'comp'}</span>
+          <Logo className={`'w-20 w-20  ${state.drawer.isExpanded ? '-mx-2' : ''}`} />
+          <span>{state.drawer.isExpanded && 'ents'}</span>
+        </div>
+      </button>
 
       <section className='flex flex-col items-start  w-full text-sm xl:text-base'>
         {

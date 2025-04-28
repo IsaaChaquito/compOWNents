@@ -2,7 +2,7 @@
 
 export const initialState = {
   activeSection: 1,
-  sections: [],
+  sections: null,
 }
 
 export const actions = {

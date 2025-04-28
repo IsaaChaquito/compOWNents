@@ -90,11 +90,11 @@ export const sections = [
     name: 'Timed button',
     link: 'timed-button',
   },
-  {
-    id:     11,
-    name: 'Neon glow master mega epic 3000',
-    link: 'neon-glow',
-  },
+  // {
+  //   id:     11,
+  //   name: 'Neon glow master mega epic 3000',
+  //   link: 'neon-glow',
+  // },
 ]
 
 export const ButtonsPage = () => {
@@ -358,8 +358,9 @@ export const ButtonsPage = () => {
               timed={
                 {
                   time: timed,
-                  proggressColor: 'bg-gray-300',
-                  decrease: true
+                  progressColor: 'bg-gray-300',
+                  decrease: true,
+                  onEnd: () => dispatch({ type: 'console/SET_TEXT', payload: 'redirect or something like that!' })
                 }
               }
               tooltip={"Haz clic para reiniciar el contador"}
@@ -392,7 +393,7 @@ export const ButtonsPage = () => {
     }
   }
   tooltip={"Haz clic para reiniciar el contador"}
-  onClick={() => resetTimer(19)}
+  onClick={() => resetTimer()}
 />`}
   </CodeBlock>
         </SubSection>

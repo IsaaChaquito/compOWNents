@@ -1,5 +1,5 @@
 // MyButton.jsx
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import ButtonBuilder2 from './ButtonBuilder';
 import { LoaderDefaultIcon } from '../../../assets/icons';
 import useTimer from '../../../hooks/timer';
@@ -16,7 +16,7 @@ const Button = ({
   loadingIcon = { content: () => <LoaderDefaultIcon className='animate-spin h-5 w-5 text-white' />, position: 'left' }   ,      // Icono de carga},
   onClick,                // Evento click
   tooltip,                // Tooltip para accesibilidad
-  timed                   // Tiempo de duración en segundos
+  timed                   // { time: number, decrease: boolean, progressColor: boolean, onEnd: () => void }
 }) => {
 
   const { timer, splitTimer } = useTimer(timed?.time);
@@ -39,10 +39,13 @@ const Button = ({
   const IconComponent = icon?.content;
   const IconLoading = loadingIcon?.content;
 
+  useEffect(() => {
+    if (timer === 0) { timed?.onEnd?.() }
+  }, [timer])
 
   return (
     <button
-      onClick={() => !disabled && !isLoading && onClick?.(timed)} // Evita clics si está disabled o loading} // Evita clics si está disabled o loading
+      onClick={() => !disabled && !isLoading && onClick?.()} // Evita clics si está disabled o loading} // Evita clics si está disabled o loading
       className={`${className} ${builderState?.classes || ''} ${icon ? ' flex items-center gap-2' : ''} ${
         disabled ? 'pointer-events-none opacity-50 select-none' : ''
       } ${isLoading ? 'pointer-events-none' : ''}`}
@@ -58,7 +61,7 @@ const Button = ({
             transformOrigin: 'left',
             width: '100%' // Cambiar de 0% a 100%
           }}
-          className={`absolute h-full transition-all duration-20 ease-linear left-0 top-0 z-0 ${timed?.proggressColor || 'bg-black'}`} 
+          className={`absolute h-full transition-all duration-20 ease-linear left-0 top-0 z-0 ${timed?.progressColor || 'bg-black'}`} 
         />
       }
 

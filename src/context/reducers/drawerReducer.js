@@ -4,27 +4,27 @@ export const initialState = {
   options: {
     buttons: {
       title: 'Buttons',
-      link: '/buttons',
+      link: 'buttons',
     },
     inputs: {
       title: 'Inputs',
-      link: '/inputs',
+      link: 'inputs',
     },
     selects: {
       title: 'Selects',
-      link: '/selects',
+      link: 'selects',
     },
     tooltips: {
       title: 'Tooltips',
-      link: '/tooltips',
+      link: 'tooltips',
     },
     badges: {
       title: 'Badges',
-      link: '/badges',
+      link: 'badges',
     },
     textarea: {
       title: 'Textarea',
-      link: '/textarea',
+      link: 'textarea',
     }
   },
   isExpanded: true,

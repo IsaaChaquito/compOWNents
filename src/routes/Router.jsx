@@ -4,32 +4,56 @@ import MainLayout from "../UI/MainLayout";
 import { HomePage } from "../components/pages";
 import { ButtonsPage } from "../components/pages/buttons/ButtonsPage";
 import { InputsPage } from "../components/pages/inputs/InputsPage";
+
 // import NotFound from "./pages/NotFound";
+
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <MainLayout />,
+//     children: [
+//       {
+//         index: true,
+//         path: '/home',
+//         element: <HomePage />,
+//       },
+//       {
+//         path: '/buttons',
+//         element: <ButtonsPage />,
+//         // children:[
+//         //   {
+//         //     path: '/components/buttons',
+//         //     element: <ButtonsPage />,
+//         //   }
+//         // ]
+//       },
+//       {
+//         path:'/inputs',
+//         element: <InputsPage />,
+//       }
+//     ],
+//   },
+// ]);
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/compownents",
     element: <MainLayout />,
     children: [
       {
         index: true,
-        path: '/home',
-        element: <HomePage />,
+        element: <ButtonsPage />, // Esta será la página por defecto al entrar en /components
       },
       {
-        // path: '/components',
-        // element: <ComponentsPage />,
-        path: '/buttons',
+        path: "buttons", // Esto resultará en /components/buttons
         element: <ButtonsPage />,
-        // children:[
-        //   {
-        //     path: '/components/buttons',
-        //     element: <ButtonsPage />,
-        //   }
-        // ]
       },
       {
-        path:'/inputs',
+        path: "inputs", // Esto resultará en /components/inputs
         element: <InputsPage />,
       }
     ],

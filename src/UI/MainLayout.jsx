@@ -33,7 +33,7 @@ export const MainLayout = () => {
           // console.log('section finder: ', state?.rightSidebar?.sections.find( section => section?.link === sectionId ));
           dispatch({ 
             type: 'rightSidebar/SET_ACTIVE_SECTION', 
-            payload: state?.rightSidebar?.sections.find( section => section?.link === sectionId )?.id || 1
+            payload: state?.rightSidebar?.sections?.find( section => section?.link === sectionId )?.id || 1
           })
         }
       });
@@ -61,9 +61,7 @@ export const MainLayout = () => {
       
 
       {/* Left Sidebar */}
-      <aside
-        className={` h-screen sticky top-0 bg-gray-100`}
-      >
+      <aside className={` h-screen sticky top-0 bg-gray-100`}>
         <Drawer />
       </aside>
 
@@ -74,9 +72,7 @@ export const MainLayout = () => {
 
       {/* Right Sidebar */}
       <aside className="bg-gray-100 h-screen sticky top-0 overflow-y-auto ">
-        
-      <RightSidebarMenu />
-        
+        <RightSidebarMenu />  
       </aside>
 
       <div className='flex justify-end sticky bottom-0 p-2 col-span-3 w-full z-10 pointer-events-none'>

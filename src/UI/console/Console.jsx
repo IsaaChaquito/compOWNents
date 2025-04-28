@@ -23,7 +23,7 @@ export const Console = () => {
 
     <button 
       onClick={toggleConsole}
-      className={`relative cursor-pointer col-span-3 gap-1 flex flex-col items-start justify-center h-20 ${state?.console?.isExpanded ? 'w-80' : 'w-22'} rounded-md bg-black/90 py-4 px-4 pointer-events-auto transition-all duration-500 overflow-hidden group `}
+      className={`relative cursor-pointer col-span-3 gap-1 flex flex-col items-start justify-center h-20 ${state?.console?.isExpanded ? 'max-w-80' : 'min-w-22'} rounded-md bg-black/90 py-4 px-4 pointer-events-auto transition-all duration-500 overflow-hidden group `}
     >
       <ArrowTopRight className={`group-hover:text-white absolute top-0 left-0 w-5 h-5 p-0.5 text-gray-400 rounded bg-transparent duration-300 ${state?.console?.isExpanded ? 'rotate-90' : '-rotate-90'}`} />
       <ArrowTopRight className={`group-hover:text-white absolute top-0 right-0 w-5 h-5 p-0.5 text-gray-400 rounded bg-transparent duration-300 ${state?.console?.isExpanded ? 'rotate-180' : ''}`} />
@@ -32,7 +32,7 @@ export const Console = () => {
       <code 
         className={`text-gray-400 overflow-hidden truncate ${state?.console?.isExpanded ? 'text-xs -translate-x-0' : 'text-sm'}`}
       >
-        Console { state.console.isExpanded && 'output' }
+        Console { state.console.isExpanded ? 'output' : <span className="p-0.5 text-[.7rem] bg-white text-black rounded">{state.console.counter}</span> || '' }
       </code>
       
       { state?.console?.isExpanded && state.console.text && (
