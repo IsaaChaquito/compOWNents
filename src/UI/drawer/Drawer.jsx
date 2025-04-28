@@ -2,7 +2,7 @@
 import { useProvider } from '../../context/useProvider'
 import { Link } from 'react-router'
 import HambugerMenu from '../HamburgerMenu'
-import { LineMdChevronTripleRight } from '../../assets/icons'
+import { LineMdChevronTripleRight, Logo } from '../../assets/icons'
 
 
 
@@ -10,8 +10,6 @@ export const Drawer = () => {
   
 
   const { state, dispatch } = useProvider()
-
-  // console.log(useProvider())
 
   const toggleDrawer = () => {
     dispatch({ 
@@ -34,10 +32,11 @@ export const Drawer = () => {
       
       <div className='flex items-center justify-center gap-2'>
         <h1 className='DRAWER-TITLE text-xl xl:text-2xl py-1 font-medium '>
-          Components
+        {state.drawer.isExpanded ? 'compOWNents' : ''}
         </h1>
         <p className='text-xs text-gray-500'>
-          {state.drawer.isExpanded ? 'Logo' : ''}
+          {/* {state.drawer.isExpanded ? 'Logo' : ''} */}
+          <Logo className='' />
         </p>
       </div>
 
