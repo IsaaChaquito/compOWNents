@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 const useTimer = ( timeInSeconds ) => {
 
-
+  const [time, setTime] = useState(timeInSeconds);
   const [timer, setTimer] = useState(timeInSeconds * 1000);
   const timerControl = useRef(null);  // Referencia para el control del temporizado
 
@@ -15,7 +15,7 @@ const useTimer = ( timeInSeconds ) => {
 
   }, [timeInSeconds])
 
-  const splitTimer = (time) => {
+  const timeFormatter = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
 
@@ -23,16 +23,27 @@ const useTimer = ( timeInSeconds ) => {
     return `${ (minutes + (Math.round(seconds).toString().includes('60') ? 1 : 0)).toString().padStart(1, '0')}:${(Math.round(seconds).toString().includes('60') ? '00' : Math.round(seconds).toString().padStart(2, '0'))}`;
   };
 
-  const reset = () => {
+  const reset = ( time ) => {
     timerControl.current?.stop()
-    setTimer(timeInSeconds * 1000)
-    timerControl.current = createTimer(timeInSeconds * 1000, setTimer)
+    setTimer(time * 1000)
+    timerControl.current = createTimer(time * 1000, setTimer)
+  }
+
+
+  const addTime = ( t ) => {
+    timerControl.current?.stop()
+    setTime(prev => prev + t) //TODO: No reinicia totalmente la barra de progreso.
+    // setTime(timer/1000 + t) //TODO: Reinicia totalmente la barra de progreso
+    setTimer(timer + t * 1000)
+    timerControl.current = createTimer(timer + t * 1000, setTimer)
   }
 
   return {
+    time,
     timer,
-    reset: () => reset(),
-    splitTimer: (timer) => splitTimer(timer),
+    resetTimer: ( timeInSeconds ) => reset( timeInSeconds ),
+    addTime: ( timeInSeconds ) => addTime( timeInSeconds ),
+    timeFormatter: ( timer ) => timeFormatter( timer ),
     pauseTimer: () => timerControl.current?.pause(),
     resumeTimer: () => timerControl.current?.resume(),
   }

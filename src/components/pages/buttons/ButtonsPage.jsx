@@ -6,6 +6,8 @@ import { HeartIcon, LoaderCircular } from '../../../assets/icons';
 import Button from '../../ui/Buttons/Button';
 import { useEffect, useState } from 'react';
 import { useProvider } from '../../../context/useProvider';
+import useTimer from '../../../hooks/timer';
+import { TableProps } from '../../TableProps';
 
 export const sizeTypes = [
   'black xs',
@@ -101,7 +103,10 @@ export const ButtonsPage = () => {
 
   const { state, dispatch } = useProvider()
   const [isLoading, setIsLoading] = useState(false);
-  const [timed, setTimed] = useState(10);
+  // const [timed, setTimed] = useState(10);
+  const time = 10
+  const timer1 = useTimer(10)
+  const timer2 = useTimer(10)
   const [scrollY, setScrollY] = useState(window.scrollY);
   
     useEffect(() => {
@@ -121,13 +126,14 @@ export const ButtonsPage = () => {
     dispatch({ type: 'console/SET_TEXT', payload: msg })
   }
 
-  const resetTimer = () => {
-    console.log('reset timer');
+
+  const resetTime = () => {
+    timer2.resetTimer(time)
     dispatch({ type: 'console/SET_TEXT', payload: 'reset timer' })
-    setTimed(1)
-    setTimeout(() => {
-      setTimed(10)
-    }, 0)
+    // setTimed(1)
+    // setTimeout(() => {
+    //   setTimed(10)
+    // }, 0)
   }
 
   useEffect(() => {
@@ -144,12 +150,76 @@ export const ButtonsPage = () => {
     <div className='w-full flex'>
       <div className='w-full px-4 h-full flex flex-col relative '>
 
-        <section className='TITLE p-2'>
-          <h1 className="text-3xl">Buttons</h1>
+        <section className='TITLE p-2 flex flex-col gap-y-5'>
+          <h1 className="text-4xl font-semibold">Buttons</h1>
         </section>   
-        
+
+        {/* <SubSection id='usage' subTitle='Prop variant Documentation' >
+          <TableProps 
+            headers={['Prop', 'Type', 'Default', 'Description']}
+            props={[
+              { 
+                prop: 'variant', 
+                type: 'string', 
+                arguments: [
+                  'primary', 
+                  'secondary', 
+                  'success', 
+                  'warning', 
+                  'danger', 
+                  'black', 
+                  'white'
+                ], 
+                description: 'A preset of default colors' 
+              },
+              { 
+                prop: 'variants', 
+                type: 'string', 
+                arguments: 'none', 
+                description: 'Can set the color, size, some features like outlined or solid variants, ' 
+              },
+            ]}
+            // tableCaption='Prop: variant'
+          />
+        </SubSection> */}
+
+        <div className='TABLE-PROPS p-2 flex flex-col gap-y-5 my-10'>
+          
+          <h1 className='text-2xl font-medium'>
+            Prop: <code className='px-1 bg-gray-800 text-gray-300 rounded'>variant</code>
+          </h1>
+
+          <TableProps 
+            tableHeaders={['Category', 'Options', 'Description']}
+            tableContent={
+              [
+                {
+                  category: 'Colors',
+                  options: 'primary, secondary, success, warning, danger, black, white',
+                  description: 'A preset of default colors'
+                },
+                {
+                  category: 'Sizes',
+                  options: 'xs, sm, md, lg, xl',
+                  description: 'A preset of default sizes'
+                },
+                {
+                  category: 'Features',
+                  options: 'outlined, solid',
+                  description: 'Can set the color, size, some features like outlined or solid variants, '
+                },
+              ]
+            }
+            // tableCaption='Prop: variant'
+          />
+          <p className='my-2'>You only need to put the options into variant prop in the same string. For example:
+            <code className='mx-1 p-1 bg-gray-800 text-gray-300 rounded'>variant='primary md pressable'</code>.
+          </p>
+          
+        </div>
 
         <SubSection id='classics' subTitle='Classics' description='You can try different classic types:' showConsole={true}>
+
           <Buttons types={regularTypes} onClickButton={onClickButton} />
           <CodeBlock>
             {regularTypes
@@ -336,64 +406,79 @@ export const ButtonsPage = () => {
   </CodeBlock>
         </SubSection>
 
-        <SubSection id='timed-button' subTitle='Timed button' description='You can set a timer in a button with the timed prop:'>
+        <SubSection id='timed-button' subTitle='Timed button' description='You can set a timer in a button with the timed prop. When the timer counter reaches zero you can trigger some action like redirect or something like that:'>
           <div className='flex gap-2 '>
             <Button
               variant="md pressable"
               className='bg-stone-700 text-white'
-              text="Reiniciar contador"
+              text="Add 5 seconds"
               timed={
                 {
-                  time: timed,
+                  time: timer1.time,
+                  timer: timer1.timer,
+                  onEnd: () => dispatch({ type: 'console/SET_TEXT', payload: 'Hello world!' }),
+                  timeWithFormat: timer1.timeFormatter(timer1.timer / 1000)
                 }
               }
               tooltip={"Haz clic para reiniciar el contador"}
-              onClick={() => resetTimer()}
+              onClick={() => timer1.addTime(5)}
             />
 
             <Button
+              onClick={() => resetTime()}
+              onMouseEnter={() => timer2.pauseTimer()}
+              onMouseLeave={() => timer2.resumeTimer()}
               variant="md white pressable"
               className='w-full'
-              text="Reiniciar contador"
+              text="Restart timer"
               timed={
                 {
-                  time: timed,
+                  time,
+                  timer: timer2.timer,
                   progressColor: 'bg-gray-300',
                   decrease: true,
-                  onEnd: () => dispatch({ type: 'console/SET_TEXT', payload: 'redirect or something like that!' })
+                  onEnd: () => dispatch({ type: 'console/SET_TEXT', payload: 'redirect or something like that!' }),
+                  timeWithFormat: timer2.timeFormatter(timer2.timer / 1000)
                 }
               }
               tooltip={"Haz clic para reiniciar el contador"}
-              onClick={() => resetTimer()}
             />
           </div>
   <CodeBlock>
 {`<Button
   variant="md pressable"
-  className='bg-stone-700 text-white w-full'
-  text="Reiniciar contador"
+  className='bg-stone-700 text-white'
+  text="Add 5 seconds"
   timed={
     {
-      time: 10, //time in seconds
+      time: timer1.time,
+      timer: timer1.timer,
+      onEnd: () => dispatch({ type: 'console/SET_TEXT', payload: 'Hello world!' }),
+      timeWithFormat: timer1.timeFormatter(timer1.timer / 1000)
     }
   }
   tooltip={"Haz clic para reiniciar el contador"}
-  onClick={() => resetTimer()}
+  onClick={() => timer1.addTime(5)}
 />
 
 <Button
-  variant="md primary pressable"
-  className='text-white w-full'
-  text="Reiniciar contador"
+  onClick={() => resetTime()}
+  onMouseEnter={() => timer2.pauseTimer()}
+  onMouseLeave={() => timer2.resumeTimer()}
+  variant="md white pressable"
+  className='w-full'
+  text="Restart timer"
   timed={
     {
-      time: 10, //time in seconds
-      proggressColor: 'bg-blue-800',
-      decrease: true
+      time,
+      timer: timer2.timer,
+      progressColor: 'bg-gray-300',
+      decrease: true,
+      onEnd: () => dispatch({ type: 'console/SET_TEXT', payload: 'redirect or something like that!' }),
+      timeWithFormat: timer2.timeFormatter(timer2.timer / 1000)
     }
   }
   tooltip={"Haz clic para reiniciar el contador"}
-  onClick={() => resetTimer()}
 />`}
   </CodeBlock>
         </SubSection>

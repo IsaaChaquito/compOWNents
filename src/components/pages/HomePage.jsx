@@ -6,10 +6,12 @@ import useTimer from "../../hooks/timer";
 export const HomePage = () => {
 
   const navigate = useNavigate();
-  const time = 9
-  const { timer } = useTimer(time);
+  const time = 5
+  const { timer, timeFormatter, pauseTimer, resumeTimer } = useTimer(time);
 
   // console.log('timer', timer);
+// Get starting in (0:06)
+// Get started
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
@@ -18,8 +20,10 @@ export const HomePage = () => {
 
       <Button 
         onClick={() => navigate('/compownents')}
+        onMouseEnter={() => pauseTimer()}
+        onMouseLeave={() => resumeTimer()}
         variant="md solid pressable text-white"
-        text="Getting started"
+        text="Get started"
         className="group hover:!text-white bg-gradient-to-r from-pink-500 to-violet-600"
         icon={{
           position: 'right', 
@@ -30,9 +34,15 @@ export const HomePage = () => {
             />
         }}
         timed= {{ 
-          time: time,
-          progressColor: ' bg-black/60 ',
-          onEnd: () => navigate('/compownents')
+          time,
+          timer,
+          // behavior: {
+          //   pausable: true,
+          //   resumible: true,
+          // },
+          progressColor: ' bg-black/25 ',
+          onEnd: () => navigate('/compownents'),
+          timeWithFormat: timeFormatter(timer / 1000)
         }}
       />
     </div>

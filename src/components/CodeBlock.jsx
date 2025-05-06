@@ -4,7 +4,7 @@ import { CopyIcon } from "../assets/icons";
 import "prismjs/themes/prism-tomorrow.css"; // Tema oscuro similar a atom-one-dark
 import "prismjs/components/prism-jsx"; // Importar soporte para JSX
 
-const CodeBlock = ({ children, language = "jsx" }) => {
+const CodeBlock = ({ children, language = "jsx", showCopyclipboard = true }) => {
   const [isCopied, setIsCopied] = useState(false);
   
   useEffect(() => {
@@ -22,18 +22,18 @@ const CodeBlock = ({ children, language = "jsx" }) => {
   
   return (
     <div className="relative w-full">
-      <pre className="peer text-sm overflow-hidden h-full rounded">
+      <pre className="!bg-gray-800 peer text-sm overflow-hidden h-full rounded sm:rounded-md">
         <code className={`language-${language} !text-sm`}>
           {children}
         </code>
       </pre>
-      <button
+      { showCopyclipboard && <button
         onClick={copyToClipboard}
         className={`${isCopied ? "opacity-100" : "opacity-0"} flex absolute top-3 right-1 bg-gray-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-gray-600 transition duration-300 ease-in-out text-sm peer-hover:opacity-100 hover:opacity-100`}
       >
         <CopyIcon className="w-4 h-4" />
         {isCopied && <span className="text-xs ml-1"> Copied! </span>}
-      </button>
+      </button>}
     </div>
   );
 };
